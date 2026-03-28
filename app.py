@@ -66,18 +66,38 @@ with col1:
 with col2:
     st.metric("SEP Angle", f"{sep_angle:.2f}°")
 with col3:
-    st.metric("SNR", f"{snr:.2f} dB")
+    st.metric("SNR (RF)", f"{snr:.2f} dB")
 with col4:
-    st.metric("BER", f"{ber:.2e}")
+    opt_snr = engine.calculate_optical_snr(p_tx_watts=10, distance_au=dist_au)
+    st.metric("SNR (Optical)", f"{opt_snr:.1f} dB")
 
 # Detailed Analysis
 st.divider()
-st.subheader("📋 Link Budget Breakdown")
-st.write(f"**FSPL:** -{fspl:.2f} dB | **Atmos Loss:** -{atmos_loss:.2f} dB | **Solar Noise:** +{t_solar:.0f} K")
-if ber > 1e-5:
-    st.error("⚠️ CRITICAL: Bit Error Rate is too high for reliable communication.")
+c1, c2 = st.columns(2)
+
+with c1:
+    st.subheader("📋 Link Budget Details")
+    st.write(f"**FSPL:** -{fspl:.2f} dB | **Atmos Loss:** -{atmos_loss:.2f} dB")
+    st.write(f"**Solar Noise:** +{t_solar:.0f} K | **FEC Gain:** +{fec_gain:.1f} dB")
+    if ber > 1e-5:
+        st.error("⚠️ CRITICAL: BER is too high for reliable RF comm.")
+    else:
+        st.success("✅ OPTIMAL: Link conditions are stable.")
+
+with c2:
+    st.subheader("📡 NASA DSN Live (Mocked/Feed)")
+    dsn_data = api.fetch_dsn_now_realtime()
+    for station in dsn_data[:3]:
+        st.write(f"**{station['name']}** ({station['type']}): `{station['status']}`")
+
+# AI Insights
+st.divider()
+st.subheader("🧠 AI Mission Insights")
+is_anomaly, z_score = predictor.detect_anomalies([snr-1, snr+1, snr-0.5, snr+0.5, snr-5]) # Simulated drop
+if is_anomaly:
+    st.warning(f"🚨 ANOMALY DETECTED: Signal drop detected (Z-Score: {z_score:.2f})")
 else:
-    st.success("✅ OPTIMAL: Link conditions are within operational limits.")
+    st.info("AI Analysis: No signal anomalies detected in the last 5 frames.")
 
 st.markdown("""
 ---

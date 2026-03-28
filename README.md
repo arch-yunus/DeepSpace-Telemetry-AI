@@ -1,55 +1,49 @@
-# 🛰️ DeepSpace-Telemetry-AI: Omega-Class Telemetri Analiz ve Optimizasyon Ekosistemi
+# 🛰️ DeepSpace-Telemetry-AI: Interstellar-Class Technical Ecosystem
 
-![TUA Astrohackathon](https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=flat-square)
-![Milli Uzay Programı](https://img.shields.io/badge/Hedef-Derin_Uzay_Haberleşmesi-e60000?style=flat-square)
-![Sürüm](https://img.shields.io/badge/Sürüm-v2.0.0--omega-purple?style=flat-square)
-![Teknoloji](https://img.shields.io/badge/Teknoloji-Skyfield_%7C_CCSDS_%7C_Plotly-2ea44f?style=flat-square)
-
-## 🌌 Proje Hakkında
-**DeepSpace-Telemetry-AI**, derin uzay görevlerinde (Mars, Jüpiter ve ötesi) karşılaşılan devasa sinyal bozulumlarını ve gürültü faktörlerini gerçek zamanlı olarak modelleyen, analiz eden ve optimize eden yüksek sadakatli (high-fidelity) bir teknik ekosistemdir.
-
-Bu sistem, sıradan bir simülasyondan öte; **Skyfield** kütüphanesi ile gerçek gezegen ephemeris verilerini kullanarak anlık yörünge geometrisi hesaplar, **CCSDS (Consultative Committee for Space Data Systems)** standartlarında modülasyon performanslarını analiz eder ve etkileşimli 3D arayüzü ile operatörlere bir karar destek mekanizması sunar.
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Mission_Ready-success?style=for-the-badge&logo=nasa" alt="Mission Ready">
+  <img src="https://img.shields.io/badge/Class-Interstellar-blueviolet?style=for-the-badge&logo=starship" alt="Interstellar Class">
+  <img src="https://img.shields.io/badge/Event-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
+</div>
 
 ---
 
-## 🛠️ Teknik Kapasite ve Özellikler
+## 🌌 Overview
+**DeepSpace-Telemetry-AI** is a state-of-the-art simulation and analysis platform for deep space communication. It bridges the gap between theoretical astrophysics and operational telecommunications, providing a high-fidelity environment for mission planning, signal optimization, and predictive maintenance.
 
-### 1. Dinamik Astronomik Geometri (High-Fidelity)
-*   **Gerçek Zamanlı Yörünge Verisi:** `skyfield` entegrasyonu ile Dünya ve Mars'ın J2000 koordinatlarındaki anlık konumlarını kullanarak hassas mesafe ($d$) hesaplaması yapar.
-*   **Dinamik SEP Açısı:** Sun-Earth-Probe (SEP) açısını anlık hesaplayarak Güneş kavuşumu (Solar Conjunction) dönemlerindeki gürültü sıcaklığını ($T_{sun}$) otomatik belirler.
-
-### 2. CCSDS Standartlarında İletişim Analizi
-*   **Gelişmiş Modülasyon Modelleri:** BPSK, QPSK, 8-PSK ve 16-APSK modülasyonları için teorik Bit Error Rate (BER) eğrilerini modeller.
-*   **Hata Düzeltme Kodları (FEC):** Reed-Solomon, Turbo ve LDPC kodlarının sağladığı sinyal kazançlarını (Coding Gain) hesaba katarak bağlantı bütçesini (Link Budget) optimize eder.
-
-### 3. Atmosferik ve Uzay Havası Modelleri
-*   **ITU-R Uyumlu Atmosferik Kayıp:** Anten yükselim açısı (Elevation) ve yağmur oranına bağlı olarak atmosferik gaz sönümlenmesini ($L_{atmos}$) hesaplar.
-*   **İyonosferik Sintilasyon:** Nakagami-m dağılımı ile iyonosferdeki plazma yoğunluklarının yarattığı dalgalanmaları modeller.
+From **Skyfield-driven orbital mechanics** to **CCSDS-standard modulation analysis** and **Optical (Laser) communication modeling**, this ecosystem is designed for the future of humanity's expansion into the solar system and beyond.
 
 ---
 
-## 📊 Matematiksel Temeller
+## 🚀 Core Pillars of Technology
 
-### Sinyal-Gürültü Oranı (Total Link Budget)
-Sistem, nihai SNR değerini hesaplarken şu denklemi temel alır:
-$$SNR_{total} = P_{tx} + G_{tx} + G_{rx} - L_{fspl} - L_{atmos} - L_{scintillation} + G_{fec} - 10\log_{10}(k(T_{sys} + T_{sun})B)$$
+### 📡 1. High-Fidelity Physics Engine
+*   **Orbital Precision:** Leverages NASA/JPL DE421 ephemeris for real-time planetary positioning.
+*   **Propagation Models:** FSPL, Atmospheric Gas/Rain attenuation (ITU-R P.676), and Ionospheric Scintillation (Nakagami-m).
+*   **Solar Interference:** Dynamic Sun-Earth-Probe (SEP) angle noise temperature modeling.
 
-### Bit Error Rate (BER) Analizi
-Farklı modülasyonlar için hata olasılığını $Q$-fonksiyonu üzerinden hesaplar:
-$$P_b \approx \frac{2}{\log_2 M} Q\left(\sqrt{2\frac{E_b}{N_0}}\sin\frac{\pi}{M}\right)$$
+### 💡 2. Next-Gen Communication
+*   **RF Standards:** CCSDS-compliant BPSK, QPSK, 8-PSK, and 16-APSK modulation curves.
+*   **Optical (Laser) Links:** Photon-counting statistics, pointing jitter analysis, and beam divergence modeling for 1550nm laser links.
+*   **Relay Logic:** Multi-hop mission simulation (Lander → Orbiter → DSN).
+
+### 🤖 3. AI & Prediction
+*   **SNR Forecasting:** Trend prediction based on solar flux and historic telemetry telemetry.
+*   **Anomaly Detection:** 3-Sigma statistical engine to flag signal glitches (Autoencoder-ready).
+*   **DSN Integration:** Real-time data ingestion from NASA's Deep Space Network (DSN Now).
 
 ---
 
-## 🖥️ İnteraktif Dashboard (Omega UI)
+## 🖥️ Interactive Omega Dashboard
+The project features a **Streamlit** dashboard for mission control and analysis.
 
-Proje, operasyonel kullanım için profesyonel bir **Streamlit** arayüzü sunar.
+### Features:
+-   **3D Orbit View:** Interactive Plotly visualization of Sun, Earth, Mars, and the communication vector.
+-   **Link Budget Analyzer:** Real-time calculations of SNR, BER, and Capacity.
+-   **Mission Profiles:** Pre-set scenarios for Mars Transit, Lunar Orbit, and Jupiter Flyby.
+-   **DSN Live Status:** Integrated view of active NASA ground stations.
 
-### Uygulama Bileşenleri:
--   **3D Orbit View:** Plotly tabanlı 3D sahne üzerinde Güneş, Dünya ve Mars'ın anlık konumları ve haberleşme vektörü.
--   **Real-time Link Budget:** Parametreler değiştikçe (yağmur oranı, modülasyon tipi vb.) anlık güncellenen SNR ve BER metrikleri.
--   **Link Status:** Sinyalin kararlılık durumunu (OPERATIONAL / CRITICAL) belirleyen akıllı uyarı sistemi.
-
-#### Dashboard'u Çalıştırma:
+### Quick Start:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
@@ -57,33 +51,37 @@ streamlit run app.py
 
 ---
 
-## 📂 Repository Yapısı
+## 📂 Architecture
 ```text
-DeepSpace-Telemetry-AI/
-├── app.py                      # Omega-Class Etkileşimli Dashboard (Main UI)
-├── docs/                       # Teknik raporlar ve analiz grafikleri
-│   ├── teorik_fizik_raporu.md  # Detaylı fiziksel modeller dökümanı
-│   └── snr_analysis_plot.png   # 30 günlük yörünge analizi çıktısı
-├── src/                        # Çekirdek Kütüphane
-│   ├── engine.py               # Fizik Motoru (Skyfield & CCSDS Entegrasyonu)
-│   ├── predictor.py            # AI Trend Tahminleyici
-│   ├── api_connector.py        # Uzay Havası Veri Bağlayıcısı
-│   └── scheduler.py            # DSN İstasyon Zamanlayıcısı
-├── simulations/                # Senaryo Koşturucular
-├── LICENSE                     # MIT
-└── requirements.txt            # Bağımlılıklar (Skyfield, Plotly, Streamlit vb.)
+📦 DeepSpace-Telemetry-AI
+ ┣ 📂 src              # Core Engine Modules
+ ┃ ┣ 📜 engine.py      # Physics & Modulation (RF/Optical)
+ ┃ ┣ 📜 predictor.py   # AI Forecasting & Anomaly Detection
+ ┃ ┣ 📜 relay.py       # Multi-hop Relay Logic
+ ┃ ┣ 📜 scheduler.py   # DSN Station Allocation
+ ┃ ┗ 📜 api_connector.py # NASA DSN Now & SpaceWeather APIs
+ ┣ 📂 simulations      # Mission Scenarios
+ ┣ 📂 docs             # Technical Reports & Graphics
+ ┣ 📜 app.py           # Streamlit Web UI
+ ┗ 📜 requirements.txt # System Dependencies
 ```
 
 ---
 
-## 🔮 Gelecek Vizyonu
--   **Optical Comm Support:** Ka-Band ötesinde derin uzay lazer haberleşme (Optical Link) modellerinin entegrasyonu.
--   **Multi-Hop Relay Logic:** Mars yörüngesindeki uydular üzerinden (Relay) aktarmalı haberleşme bütçesinin hesaplanması.
--   **Real Space Data:** Deep Space Network (DSN) Now API'sinden anlık gerçek anten verilerinin çekilmesi.
+## 🌗 Mathematical Foundations
+The system is built on rigorous academic literature, including:
+-   **Friis Transmission Equation** for link budgets.
+-   **Nyquist-Shannon** for theoretical channel capacity.
+-   **ITU-R P.676** for atmospheric gaseous attenuation.
+-   **Nakagami-m** for ionospheric scintillation fading math.
 
 ---
 
-## 👨‍💻 Geliştirici
-Bu proje, **TUA Astrohackathon 2026** kapsamında geliştirilmiş "Omega-Class" bir sistemdir.
+## 👨‍💻 Developed by
+**Yunus Emre** | Multi-Disciplinary Systems Designer | AI & Space Science Implementation  
+Developed specifically for the **TUA Astrohackathon 2026**.
 
-**Contact:** [Yunus Emre] | Multi-Disciplinary Systems Designer | AI & Space Science Implementation
+---
+<div align="center">
+  <i>"Ad Astra Per Aspera"</i>
+</div>

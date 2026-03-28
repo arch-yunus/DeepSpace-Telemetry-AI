@@ -126,6 +126,40 @@ class TelemetryEngine:
             
         return max(ber, 1e-15)
 
+    def calculate_pointing_loss(self, jitter_urad, beamwidth_urad):
+        """
+        Calculates loss due to pointing jitter in optical communication.
+        """
+        if beamwidth_urad == 0: return 100
+        loss_db = 4.34 * (jitter_urad / beamwidth_urad)**2
+        return loss_db
+
+    def calculate_optical_snr(self, p_tx_watts, distance_au, wavelength_nm=1550, diameter_tx=0.22, diameter_rx=5.0):
+        """
+        Calculates SNR for an Optical (Laser) Link.
+        Based on photon counting and aperture gains.
+        """
+        distance_m = distance_au * 1.496e11
+        wavelength_m = wavelength_nm * 1e-9
+        
+        # Airy disk diffraction limit
+        theta_div = 1.22 * (wavelength_m / diameter_tx)
+        
+        # Received Power (Simplified Flux model)
+        area_rx = np.pi * (diameter_rx / 2)**2
+        p_rx = p_tx_watts * (area_rx / (distance_m * theta_div)**2)
+        
+        # Photon Energy E = h * f = h * c / lambda
+        h = 6.626e-34
+        energy_photon = (h * self.C) / wavelength_m
+        
+        # Photon count per second (approx)
+        n_photons = p_rx / energy_photon
+        
+        # Optical SNR (Shot noise limited proxy)
+        snr_db = 10 * np.log10(n_photons) if n_photons > 1 else -100
+        return snr_db
+
     def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, fec_gain_db=0, atmos_loss_db=0, other_losses_db=0):
         """Calculates total SNR including all Phase 4 factors."""
         t_sys_assumed = 25.0
