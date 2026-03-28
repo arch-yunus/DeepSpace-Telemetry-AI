@@ -36,13 +36,47 @@ class TelemetryEngine:
         noise_power = self.KB * system_temp * bandwidth
         return noise_power
 
-    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, other_losses_db=0):
+    def calculate_solar_conjunction_noise(self, sep_angle_deg):
+        """
+        Models noise temperature increase due to Solar Conjunction.
+        SEP (Sun-Earth-Probe) angle in degrees.
+        """
+        # Empirical model for noise temperature increase (T_sun)
+        # Based on typical DSN performance near solar conjunction
+        if sep_angle_deg < 0.1:
+            return 50000  # Extreme interference
+        elif sep_angle_deg < 2.0:
+            return 1000 * (1.0 / sep_angle_deg**2)
+        else:
+            return 0
+
+    def calculate_scintillation_loss(self, m_parameter, frequency_hz):
+        """
+        Models signal fading due to ionospheric scintillation using Nakagami-m.
+        Returns a statistical 'worst-case' loss in dB.
+        """
+        # Simplification: Higher m means less fading (m=1 is Rayleigh)
+        # We return a margin needed to combat fading
+        fading_margin = 10 * np.log10(m_parameter) # Placeholder heuristic
+        return float(max(0.0, 5.0 / m_parameter)) 
+
+    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, other_losses_db=0):
         """Calculates Signal-to-Noise Ratio (SNR) in dB."""
-        # P_receive = P_transmit + G_transmit + G_receive - FSPL - Other
-        p_receive_dbm = p_transmit_dbm + g_transmit_db + g_receive_db - fspl_db - other_losses_db
+        # Update noise power with solar contribution
+        # P_noise = k * (T_sys + T_solar) * B
+        # Since noise_power_w already includes T_sys, we add solar part
+        # noise_power_w = k * T_sys * B 
+        # T_sys = noise_power_w / (k * B)
+        # Total T = T_sys + T_solar
         
-        # Convert noise power to dBm
-        noise_dbm = 10 * np.log10(noise_power_w * 1000)
+        # For simplicity, we assume noise_power_w passed is the base thermal noise
+        # and we scale it up by (T_sys + T_solar) / T_sys
+        t_sys_assumed = 25.0
+        scale_factor = (t_sys_assumed + t_solar) / t_sys_assumed
+        total_noise_w = noise_power_w * scale_factor
+        
+        p_receive_dbm = p_transmit_dbm + g_transmit_db + g_receive_db - fspl_db - other_losses_db
+        noise_dbm = 10 * np.log10(total_noise_w * 1000)
         
         snr_db = p_receive_dbm - noise_dbm
         return snr_db
