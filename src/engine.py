@@ -60,17 +60,32 @@ class TelemetryEngine:
         fading_margin = 10 * np.log10(m_parameter) # Placeholder heuristic
         return float(max(0.0, 5.0 / m_parameter)) 
 
-    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, other_losses_db=0):
-        """Calculates Signal-to-Noise Ratio (SNR) in dB."""
-        # Update noise power with solar contribution
-        # P_noise = k * (T_sys + T_solar) * B
-        # Since noise_power_w already includes T_sys, we add solar part
-        # noise_power_w = k * T_sys * B 
-        # T_sys = noise_power_w / (k * B)
-        # Total T = T_sys + T_solar
-        
-        # For simplicity, we assume noise_power_w passed is the base thermal noise
-        # and we scale it up by (T_sys + T_solar) / T_sys
+    def calculate_ber(self, snr_db, modulation="BPSK"):
+        """
+        Calculates Bit Error Rate (BER) for a given SNR.
+        Uses Q-function approximation for BPSK/QPSK.
+        """
+        snr_linear = 10 ** (snr_db / 10.0)
+        # BER = 0.5 * erfc(sqrt(SNR))
+        from scipy.special import erfc
+        ber = 0.5 * erfc(np.sqrt(snr_linear))
+        return max(ber, 1e-12) # Lower bound for visualization
+
+    def calculate_fec_gain(self, code_type="Reed-Solomon"):
+        """
+        Returns typical coding gain in dB for various FEC schemes.
+        """
+        gains = {
+            "None": 0.0,
+            "Reed-Solomon": 3.5,
+            "Convolutional": 5.0,
+            "Turbo": 7.0,
+            "LDPC": 9.0
+        }
+        return gains.get(code_type, 0.0)
+
+    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, fec_gain_db=0, other_losses_db=0):
+        """Calculates Signal-to-Noise Ratio (SNR) in dB, including FEC gain."""
         t_sys_assumed = 25.0
         scale_factor = (t_sys_assumed + t_solar) / t_sys_assumed
         total_noise_w = noise_power_w * scale_factor
@@ -78,7 +93,7 @@ class TelemetryEngine:
         p_receive_dbm = p_transmit_dbm + g_transmit_db + g_receive_db - fspl_db - other_losses_db
         noise_dbm = 10 * np.log10(total_noise_w * 1000)
         
-        snr_db = p_receive_dbm - noise_dbm
+        snr_db = p_receive_dbm - noise_dbm + fec_gain_db
         return snr_db
 
 if __name__ == "__main__":
