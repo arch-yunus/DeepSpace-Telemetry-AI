@@ -1,118 +1,89 @@
-# 🛰️ DeepSpace-Telemetry-AI: Derin Uzay Sinyal Bozulum ve Gürültü Modeli
+# 🛰️ DeepSpace-Telemetry-AI: Omega-Class Telemetri Analiz ve Optimizasyon Ekosistemi
 
 ![TUA Astrohackathon](https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=flat-square)
-![Milli Uzay Programı](https://img.shields.io/badge/Hedef-Teorik_Bilimsel_Araştırma-e60000?style=flat-square)
-![Sürüm](https://img.shields.io/badge/Sürüm-v1.0.0--beta-orange?style=flat-square)
-![Teknoloji](https://img.shields.io/badge/Teknoloji-SciPy_%7C_DSP_%7C_Physics_Engine-2ea44f?style=flat-square)
+![Milli Uzay Programı](https://img.shields.io/badge/Hedef-Derin_Uzay_Haberleşmesi-e60000?style=flat-square)
+![Sürüm](https://img.shields.io/badge/Sürüm-v2.0.0--omega-purple?style=flat-square)
+![Teknoloji](https://img.shields.io/badge/Teknoloji-Skyfield_%7C_CCSDS_%7C_Plotly-2ea44f?style=flat-square)
 
-## 🌌 Yüksek Düzey Özet
-**DeepSpace-Telemetry-AI**, derin uzay görevlerindeki (Ay, Mars ve ötesi) uzay araçları ile Dünya'daki yer istasyonları arasındaki telemetri sinyallerinin, uzay havası (Space Weather) koşullarından nasıl etkilendiğini analiz eden ve yapay zeka ile optimize eden teorik bir fizik motorudur.
+## 🌌 Proje Hakkında
+**DeepSpace-Telemetry-AI**, derin uzay görevlerinde (Mars, Jüpiter ve ötesi) karşılaşılan devasa sinyal bozulumlarını ve gürültü faktörlerini gerçek zamanlı olarak modelleyen, analiz eden ve optimize eden yüksek sadakatli (high-fidelity) bir teknik ekosistemdir.
 
-Sistem; Güneş rüzgarları, Koronal Kütle Atımları (CME), kozmik arka plan ışıması ve Dünya'nın iyonosfer tabakasındaki plazma yoğunluklarının X-Band ve Ka-Band radyo sinyallerinde yarattığı faz kaymalarını ve sintilasyon (scintillation) gürültülerini uzay fiziği denklemleriyle modeller.
-
----
-
-## 🚀 Araştırma Problemi ve Mühendislik Kısıtları
-Derin uzaydan gelen bir sinyal, Dünya'ya ulaşana kadar zorlu bir ortamdan geçer. Karşılaşılan temel sinyal bozulum faktörleri şunlardır:
-1. **İyonosferik Gecikme:** Serbest elektronların radyo dalgalarını kırması ve sinyal zarfında hızlı genlik/faz dalgalanmaları yaratması.
-2. **Güneş Plazması Girişimi:** Uzay aracının Dünya ve Güneş ile aynı hizaya (Solar Conjunction) geldiği durumlarda artan termal gürültü.
-3. **Serbest Uzay Yol Kaybı (FSPL):** Sinyalin kat ettiği devasa mesafeye bağlı olarak enerjisinin ters kare yasasına göre sönümlenmesi.
-
-Bu model, iletişim kopukluklarını önceden tahmin etme ve Sinyal-Gürültü Oranını (SNR) maksimize edecek algoritmik bir Karar Destek mekanizması sunar.
+Bu sistem, sıradan bir simülasyondan öte; **Skyfield** kütüphanesi ile gerçek gezegen ephemeris verilerini kullanarak anlık yörünge geometrisi hesaplar, **CCSDS (Consultative Committee for Space Data Systems)** standartlarında modülasyon performanslarını analiz eder ve etkileşimli 3D arayüzü ile operatörlere bir karar destek mekanizması sunar.
 
 ---
 
-## 🛠️ Teorik Çerçeve ve Fiziksel Denklemler
-Projenin çekirdek simülasyon motoru, aşağıdaki temel astrofizik ve telekomünikasyon denklemlerini kullanarak anlık gürültü profilleri üretir:
+## 🛠️ Teknik Kapasite ve Özellikler
 
-### 1. İyonosferik Gecikme Modeli
-Radyo sinyalinin iyonosferden geçerken maruz kaldığı grup gecikmesi ($\Delta\tau$), Toplam Elektron İçeriği (TEC - Total Electron Content) ve sinyal frekansına ($f$) bağlıdır:
+### 1. Dinamik Astronomik Geometri (High-Fidelity)
+*   **Gerçek Zamanlı Yörünge Verisi:** `skyfield` entegrasyonu ile Dünya ve Mars'ın J2000 koordinatlarındaki anlık konumlarını kullanarak hassas mesafe ($d$) hesaplaması yapar.
+*   **Dinamik SEP Açısı:** Sun-Earth-Probe (SEP) açısını anlık hesaplayarak Güneş kavuşumu (Solar Conjunction) dönemlerindeki gürültü sıcaklığını ($T_{sun}$) otomatik belirler.
 
-$$\Delta\tau = \frac{40.3 \times TEC}{c \cdot f^2}$$
+### 2. CCSDS Standartlarında İletişim Analizi
+*   **Gelişmiş Modülasyon Modelleri:** BPSK, QPSK, 8-PSK ve 16-APSK modülasyonları için teorik Bit Error Rate (BER) eğrilerini modeller.
+*   **Hata Düzeltme Kodları (FEC):** Reed-Solomon, Turbo ve LDPC kodlarının sağladığı sinyal kazançlarını (Coding Gain) hesaba katarak bağlantı bütçesini (Link Budget) optimize eder.
 
-*(Model, $c$ ışık hızını sabit alarak NOAA'dan çekilen anlık TEC verilerini bu formüle besler.)*
-
-### 2. Termal Gürültü ve Güneş Plazma Modeli
-Alıcı antenin sistem sıcaklığına ($T_s$) ve Güneş'ten gelen arka plan gürültüsüne bağlı olarak oluşan termal gürültü gücü ($P_N$) Nyquist teoremine göre hesaplanır:
-
-$$P_N = k_B \cdot T_s \cdot B$$
-
-*($k_B$: Boltzmann sabiti, $B$: Alıcının bant genişliği)*
-
-### 3. Friis İletim Denklemi
-Uzay aracından iletilen gücün ($P_t$), mesafeye ($d$) ve anten kazançlarına ($G_t, G_r$) göre yer istasyonuna ulaştığındaki son değeri:
-
-$$P_r = P_t \cdot G_t \cdot G_r \left(\frac{\lambda}{4\pi d}\right)^2$$
-
-### 4. Toplam Sinyal-Gürültü Oranı (SNR)
-Sistem, tüm bozucu etkileri birleştirerek nihai iletişim kalitesini desibel (dB) cinsinden sürekli optimize eder:
-
-$$SNR_{dB} = 10 \log_{10} \left( \frac{P_r}{P_N + P_{cme} + P_{iono}} \right)$$
+### 3. Atmosferik ve Uzay Havası Modelleri
+*   **ITU-R Uyumlu Atmosferik Kayıp:** Anten yükselim açısı (Elevation) ve yağmur oranına bağlı olarak atmosferik gaz sönümlenmesini ($L_{atmos}$) hesaplar.
+*   **İyonosferik Sintilasyon:** Nakagami-m dağılımı ile iyonosferdeki plazma yoğunluklarının yarattığı dalgalanmaları modeller.
 
 ---
 
-## 🏗️ Sistem Mimarisi ve Veri Hattı
-1. **Uzay Havası Veri Entegrasyonu:** NASA (SDO) ve NOAA API'leri üzerinden anlık Güneş lekesi aktivitesi ve TEC haritaları sisteme çekilir.
-2. **Fizik Motoru (DSP & Physics):** Gelen veriler, matematiksel modellere sokularak sinyal zayıflama matrisleri oluşturulur.
-3. **Makine Öğrenmesi ile Tahmin:** Geçmiş bozulum verileri eğitilerek, gelecekteki olası sinyal kesintilerini önceden tahmin eden zaman serisi algoritmaları (Time-Series AI) çalıştırılır.
+## 📊 Matematiksel Temeller
+
+### Sinyal-Gürültü Oranı (Total Link Budget)
+Sistem, nihai SNR değerini hesaplarken şu denklemi temel alır:
+$$SNR_{total} = P_{tx} + G_{tx} + G_{rx} - L_{fspl} - L_{atmos} - L_{scintillation} + G_{fec} - 10\log_{10}(k(T_{sys} + T_{sun})B)$$
+
+### Bit Error Rate (BER) Analizi
+Farklı modülasyonlar için hata olasılığını $Q$-fonksiyonu üzerinden hesaplar:
+$$P_b \approx \frac{2}{\log_2 M} Q\left(\sqrt{2\frac{E_b}{N_0}}\sin\frac{\pi}{M}\right)$$
 
 ---
 
-## 📂 Depo Yapısı (Repository Structure)
+## 🖥️ İnteraktif Dashboard (Omega UI)
 
-```text
-DeepSpace-Telemetry-AI/
-├── app.py                      # Streamlit Interactive Dashboard
-├── docs/                       # Teorik raporlar ve grafikler
-├── data/                       # Tarihsel CME ve TEC veri setleri
-├── src/                        # Çekirdek motor ve modüller
-│   ├── engine.py               # BER/FEC modelleri ve fiziksel denklemler
-│   ├── predictor.py            # AI SNR Tahminleyici
-│   ├── api_connector.py        # Dış veri entegrasyonu
-│   └── scheduler.py            # DSN İstasyon Seçici (Multi-node)
-├── simulations/                # Simülasyon senaryoları
-│   ├── run_simulation.py      # Temel simülasyon
-│   └── trajectory_sim.py      # 30 günlük görev simülasyonu
-├── LICENSE                     # MIT Lisansı
-├── requirements.txt            # Bağımlılıklar
-└── README.md                   # Proje ana belgesi
-```
+Proje, operasyonel kullanım için profesyonel bir **Streamlit** arayüzü sunar.
 
----
+### Uygulama Bileşenleri:
+-   **3D Orbit View:** Plotly tabanlı 3D sahne üzerinde Güneş, Dünya ve Mars'ın anlık konumları ve haberleşme vektörü.
+-   **Real-time Link Budget:** Parametreler değiştikçe (yağmur oranı, modülasyon tipi vb.) anlık güncellenen SNR ve BER metrikleri.
+-   **Link Status:** Sinyalin kararlılık durumunu (OPERATIONAL / CRITICAL) belirleyen akıllı uyarı sistemi.
 
-## 💻 Kurulum ve Simülasyon
-Geliştirilen sistemi yerel ortamınızda çalıştırmak için:
-
-### 1. Etkileşimli Dashboard (Önerilen)
-Gerçek zamanlı parametre analizi için:
+#### Dashboard'u Çalıştırma:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### 2. Yörünge Simülasyonu
-30 günlük bir transiti analiz etmek ve grafik üretmek için:
-```bash
-python simulations/trajectory_sim.py
+---
+
+## 📂 Repository Yapısı
+```text
+DeepSpace-Telemetry-AI/
+├── app.py                      # Omega-Class Etkileşimli Dashboard (Main UI)
+├── docs/                       # Teknik raporlar ve analiz grafikleri
+│   ├── teorik_fizik_raporu.md  # Detaylı fiziksel modeller dökümanı
+│   └── snr_analysis_plot.png   # 30 günlük yörünge analizi çıktısı
+├── src/                        # Çekirdek Kütüphane
+│   ├── engine.py               # Fizik Motoru (Skyfield & CCSDS Entegrasyonu)
+│   ├── predictor.py            # AI Trend Tahminleyici
+│   ├── api_connector.py        # Uzay Havası Veri Bağlayıcısı
+│   └── scheduler.py            # DSN İstasyon Zamanlayıcısı
+├── simulations/                # Senaryo Koşturucular
+├── LICENSE                     # MIT
+└── requirements.txt            # Bağımlılıklar (Skyfield, Plotly, Streamlit vb.)
 ```
 
 ---
 
-## 🌓 Proje Özellikleri (+Phase 3)
-- **Hata Oranı (BER) Analizi:** BPSK/QPSK modülasyonları için teorik Bit Error Rate hesaplaması.
-- **FEC Kazancı:** Reed-Solomon, Turbo ve LDPC kodlama tekniklerinin sinyal üzerindeki iyileştirici etkisi.
-- **Akıllı DSN Zamanlayıcı:** Uzay aracının konumuna göre en uygun yer istasyonunun (Goldstone, Madrid, Canberra) otomatik seçimi.
-- **Yapay Zeka Destekli Tahmin:** Güneş akısı verileriyle SNR düşüşlerini önceden raporlama.
-
----
-
 ## 🔮 Gelecek Vizyonu
-- [ ] Derin uzay optik haberleşmesinde (Lazer iletişimi) atmosferik türbülansın yaratacağı foton sağılımlarını hesaplayacak modellerin sisteme entegrasyonu.
-- [ ] Çoklu yer istasyonu dizilimleri kullanılarak sinyal bozulumunun interferometri teknikleriyle filtrelenmesi.
+-   **Optical Comm Support:** Ka-Band ötesinde derin uzay lazer haberleşme (Optical Link) modellerinin entegrasyonu.
+-   **Multi-Hop Relay Logic:** Mars yörüngesindeki uydular üzerinden (Relay) aktarmalı haberleşme bütçesinin hesaplanması.
+-   **Real Space Data:** Deep Space Network (DSN) Now API'sinden anlık gerçek anten verilerinin çekilmesi.
 
 ---
 
 ## 👨‍💻 Geliştirici
-Bu proje, **TUA Astrohackathon** etkinliği kapsamında geliştirilmiştir.
+Bu proje, **TUA Astrohackathon 2026** kapsamında geliştirilmiş "Omega-Class" bir sistemdir.
 
-**Tasarım ve Araştırma:** Multi-Disciplinary Systems Designer | Solopreneur | AI & Industrial Optimization
+**Contact:** [Yunus Emre] | Multi-Disciplinary Systems Designer | AI & Space Science Implementation

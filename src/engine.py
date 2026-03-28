@@ -60,37 +60,79 @@ class TelemetryEngine:
         fading_margin = 10 * np.log10(m_parameter) # Placeholder heuristic
         return float(max(0.0, 5.0 / m_parameter)) 
 
+    def get_planetary_positions(self, date_str=None):
+        """
+        Uses Skyfield to get Earth and Mars positions.
+        Returns distance in AU and SEP angle in degrees.
+        """
+        try:
+            from skyfield.api import load
+            planets = load('de421.bsp')
+            earth, mars, sun = planets['earth'], planets['mars'], planets['sun']
+            ts = load.timescale()
+            t = ts.now() if not date_str else ts.utc(*map(int, date_str.split('-')))
+            
+            e_pos = earth.at(t).position.au
+            m_pos = mars.at(t).position.au
+            s_pos = sun.at(t).position.au
+            
+            # Distance Earth-Mars
+            dist = np.linalg.norm(m_pos - e_pos)
+            
+            # SEP Angle (Sun-Earth-Probe)
+            v_earth_sun = s_pos - e_pos
+            v_earth_mars = m_pos - e_pos
+            
+            # dot product / (norm1 * norm2) = cos(theta)
+            unit_v1 = v_earth_sun / np.linalg.norm(v_earth_sun)
+            unit_v2 = v_earth_mars / np.linalg.norm(v_earth_mars)
+            sep_angle = np.degrees(np.arccos(np.clip(np.dot(unit_v1, unit_v2), -1.0, 1.0)))
+            
+            return dist, sep_angle, {"earth": e_pos, "mars": m_pos, "sun": s_pos}
+        except Exception:
+            # Fallback to defaults if skyfield not installed or fails
+            return 1.52, 5.0, None
+
+    def calculate_atmospheric_loss(self, elevation_deg, rain_rate_mm_h=0):
+        """
+        Calculates attenuation due to Earth's atmosphere (Gas + Rain).
+        Simplified ITU-R models.
+        """
+        # Gas attenuation (O2/H2O) base ~0.5 dB at zenith (90 deg)
+        gas_loss = 0.5 / np.sin(np.radians(max(5, elevation_deg)))
+        
+        # Rain attenuation placeholder
+        rain_loss = (rain_rate_mm_h * 0.1) / np.sin(np.radians(max(5, elevation_deg)))
+        
+        return gas_loss + rain_loss
+
     def calculate_ber(self, snr_db, modulation="BPSK"):
         """
-        Calculates Bit Error Rate (BER) for a given SNR.
-        Uses Q-function approximation for BPSK/QPSK.
+        Calculates Bit Error Rate (BER) for various CCSDS modulations.
         """
         snr_linear = 10 ** (snr_db / 10.0)
-        # BER = 0.5 * erfc(sqrt(SNR))
         from scipy.special import erfc
-        ber = 0.5 * erfc(np.sqrt(snr_linear))
-        return max(ber, 1e-12) # Lower bound for visualization
+        
+        if modulation == "BPSK" or modulation == "QPSK":
+            ber = 0.5 * erfc(np.sqrt(snr_linear))
+        elif modulation == "8-PSK":
+            # Approximation for M-PSK
+            ber = (2 / 3) * 0.5 * erfc(np.sqrt(3 * snr_linear) * np.sin(np.pi / 8))
+        elif modulation == "16-APSK":
+            # High-order proxy
+            ber = 0.5 * erfc(np.sqrt(0.5 * snr_linear))
+        else:
+            ber = 0.5 * erfc(np.sqrt(snr_linear))
+            
+        return max(ber, 1e-15)
 
-    def calculate_fec_gain(self, code_type="Reed-Solomon"):
-        """
-        Returns typical coding gain in dB for various FEC schemes.
-        """
-        gains = {
-            "None": 0.0,
-            "Reed-Solomon": 3.5,
-            "Convolutional": 5.0,
-            "Turbo": 7.0,
-            "LDPC": 9.0
-        }
-        return gains.get(code_type, 0.0)
-
-    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, fec_gain_db=0, other_losses_db=0):
-        """Calculates Signal-to-Noise Ratio (SNR) in dB, including FEC gain."""
+    def calculate_snr(self, p_transmit_dbm, g_transmit_db, g_receive_db, fspl_db, noise_power_w, t_solar=0, fec_gain_db=0, atmos_loss_db=0, other_losses_db=0):
+        """Calculates total SNR including all Phase 4 factors."""
         t_sys_assumed = 25.0
         scale_factor = (t_sys_assumed + t_solar) / t_sys_assumed
         total_noise_w = noise_power_w * scale_factor
         
-        p_receive_dbm = p_transmit_dbm + g_transmit_db + g_receive_db - fspl_db - other_losses_db
+        p_receive_dbm = p_transmit_dbm + g_transmit_db + g_receive_db - fspl_db - atmos_loss_db - other_losses_db
         noise_dbm = 10 * np.log10(total_noise_w * 1000)
         
         snr_db = p_receive_dbm - noise_dbm + fec_gain_db
