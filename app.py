@@ -6,16 +6,16 @@ from datetime import datetime
 from src.engine import TelemetryEngine
 from src.predictor import TelemetryPredictor
 from src.scheduler import DSNScheduler
-
 from src.api_connector import SpaceWeatherAPI
+from src.relay import MissionRelay
 
-# Page Config
+# Sayfa Yapılandırması
 st.set_page_config(page_title="DeepSpace-Telemetry-AI Milli Vizyon", layout="wide")
 
 st.title("🛰️ DeepSpace-Telemetry-AI: Milli Uzay Vizyonu")
-st.markdown("### Derin Uzay Haberleşme Analiz ve Karar Destek Sistemi (Omega-Class)")
+st.markdown("### Derin Uzay Haberleşme Analiz ve Karar Destek Sistemi (Master-Class)")
 
-# Sidebar for Inputs
+# Yan Panel Girişleri
 st.sidebar.header("📡 Görev Kontrol (TUA)")
 mission_type = st.sidebar.selectbox("Görev Profili", ["Ay Projesi", "Mars Testi", "Jüpiter Flyby", "Özel Görev"])
 
@@ -27,19 +27,21 @@ st.sidebar.header("🌍 Yer Segmenti (Türkiye)")
 elevation = st.sidebar.slider("Anten Yükselimi (Derece)", 5, 90, 45)
 rain_rate = st.sidebar.slider("Yağış Oranı (mm/saat)", 0, 50, 0)
 
-# Initialize Engine
+# Motorların Başlatılması
 engine = TelemetryEngine()
 predictor = TelemetryPredictor()
 scheduler = DSNScheduler()
 api = SpaceWeatherAPI()
-from src.relay import MissionRelay
 relay = MissionRelay(engine)
 
-# Astronomical Data
+# Görev Parametrelerini Al
+m_params = engine.get_tua_mission_params(mission_type)
+
+# Astronomik Veriler
 dist_au, sep_angle, positions = engine.get_planetary_positions(sim_date.strftime("%Y-%m-%d"))
 if mission_type == "Ay Projesi": dist_au = m_params["dist_au"]
 
-# Calculations
+# Hesaplamalar
 freq = engine.frequencies[m_params["band"]]
 fspl = engine.calculate_fspl(dist_au, freq)
 t_solar = engine.calculate_solar_conjunction_noise(sep_angle)
@@ -52,7 +54,7 @@ p_noise_thermal = engine.calculate_thermal_noise(25, 1e6)
 snr = engine.calculate_snr(p_tx, g_tx, g_rx, fspl, p_noise_thermal, t_solar=t_solar, fec_gain_db=fec_gain, atmos_loss_db=atmos_loss)
 ber = engine.calculate_ber(snr, modulation=modulation)
 
-# 3D Visualization
+# 3D Görselleştirme
 if positions:
     fig = go.Figure()
     fig.add_trace(go.Scatter3d(x=[positions['sun'][0]], y=[positions['sun'][1]], z=[positions['sun'][2]], mode='markers', marker=dict(size=12, color='yellow'), name='Güneş'))
@@ -63,7 +65,7 @@ if positions:
     fig.update_layout(title="3D Yörünge Geometrisi (Ecliptic J2000)", scene=dict(bgcolor='black', xaxis=dict(gridcolor='gray'), yaxis=dict(gridcolor='gray'), zaxis=dict(gridcolor='gray')), margin=dict(l=0, r=0, b=0, t=40))
     st.plotly_chart(fig, use_container_width=True)
 
-# Dashboard Metrics
+# Dashboard Metrikleri
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric("Mesafe", f"{dist_au:.4f} AU")
@@ -75,7 +77,7 @@ with col4:
     opt_snr = engine.calculate_optical_snr(p_tx_watts=10, distance_au=dist_au)
     st.metric("SNR (Optik)", f"{opt_snr:.1f} dB")
 
-# Detailed Analysis
+# Detaylı Analiz
 st.divider()
 c1, c2 = st.columns(2)
 
