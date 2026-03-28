@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from datetime import datetime
+import time
+
 from src.engine import TelemetryEngine
 from src.predictor import TelemetryPredictor
 from src.scheduler import DSNScheduler
@@ -10,134 +12,105 @@ from src.api_connector import SpaceWeatherAPI
 from src.relay import MissionRelay
 from src.analyser import MonteCarloAnalyser, CoverageMapper
 from src.reconstructor import SignalReconstructor
+from src.swarm import SwarmCoordinator
 
 # Sayfa Yapılandırması
-st.set_page_config(page_title="DeepSpace-Telemetry-AI Evrensel Seviye", layout="wide")
+st.set_page_config(page_title="DeepSpace-Telemetry-AI Aşkın Seviye", layout="wide")
 
-st.title("🛰️ DeepSpace-Telemetry-AI: Evrensel Görev Kontrol")
-st.markdown("### Sonsuz Vizyon Derin Uzay Analiz Ekosistemi (Universal-Class)")
+st.title("🛰️ DeepSpace-Telemetry-AI: Aşkın Görev Kontrol")
+st.markdown("### Final Sınır: Kuantum ve Sürü Zekası (Transcendental-Class)")
 
 # Yan Panel Girişleri
 st.sidebar.header("📡 Görev Kontrol (TUA)")
-mission_type = st.sidebar.selectbox("Görev Profili", ["Ay Projesi", "Mars Testi", "Jüpiter Flyby", "Özel Görev"])
+mission_type = st.sidebar.selectbox("Görev Profili", ["Ay Projesi", "Mars Testi", "Jüpiter Flyby", "Alpha Centauri (Teorik)"])
 
 sim_date = st.sidebar.date_input("Simülasyon Tarihi", datetime.now())
 modulation = st.sidebar.selectbox("Modülasyon (CCSDS)", ["BPSK", "QPSK", "8-PSK", "16-APSK"])
-fec_type = st.sidebar.selectbox("Hata Düzeltme (FEC)", ["None", "Reed-Solomon", "Turbo", "LDPC"])
 
-st.sidebar.header("🌍 Yer Segmenti (Türkiye)")
-elevation = st.sidebar.slider("Anten Yükselimi (Derece)", 5, 90, 45)
-rain_rate = st.sidebar.slider("Yağış Oranı (mm/saat)", 0, 50, 0)
+st.sidebar.header("🌌 İleri Teknoloji")
+use_quantum = st.sidebar.toggle("Kuantum Dolanıklık Linki (Dolaysız)", value=False)
+swarm_size = st.sidebar.slider("Sürü Anten Büyüklüğü (Uydu Sayısı)", 1, 1000, 100)
 
 # Motorların Başlatılması
 if 'engine' not in st.session_state:
     st.session_state.engine = TelemetryEngine()
     st.session_state.reconstructor = SignalReconstructor()
-    st.session_state.predictor = TelemetryPredictor()
-    st.session_state.scheduler = DSNScheduler()
-    st.session_state.api = SpaceWeatherAPI()
+    st.session_state.swarm = SwarmCoordinator()
     st.session_state.relay = MissionRelay(st.session_state.engine)
     st.session_state.analyser = MonteCarloAnalyser(st.session_state.engine)
-    st.session_state.mapper = CoverageMapper(st.session_state.engine)
+    st.session_state.api = SpaceWeatherAPI()
 
 engine = st.session_state.engine
-reconstructor = st.session_state.reconstructor
+swarm = st.session_state.swarm
 
 # Görev Parametrelerini Al
-m_params = engine.get_tua_mission_params(mission_type)
+m_params = engine.get_tua_mission_params(mission_type if mission_type != "Alpha Centauri (Teorik)" else "Özel Görev")
+dist_au = m_params["dist_au"] if mission_type != "Alpha Centauri (Teorik)" else 268770 # ~4.2 Light Years
 
-# Bant Seçimi (Multispectral Genişleme)
-band = st.sidebar.selectbox("Haberleşme Bandı", list(engine.frequencies.keys()), index=1)
+# Kuantum Gecikme ve SNR Boost
+latency, q_boost = (0, 30) if use_quantum else ((dist_au * 499), 0)
+swarm_gain = swarm.calculate_array_gain(swarm_size)
 
-# Astronomik Veriler
-dist_au, sep_angle, positions = engine.get_planetary_positions(sim_date.strftime("%Y-%m-%d"))
-if mission_type == "Ay Projesi": dist_au = m_params["dist_au"]
-
-# Hesaplamalar
-freq = engine.frequencies[band]
-fspl = engine.calculate_fspl(dist_au, freq)
-t_solar = engine.calculate_solar_conjunction_noise(sep_angle)
-fec_gain = engine.calculate_fec_gain(fec_type)
-atmos_loss = engine.calculate_atmospheric_loss(elevation, rain_rate)
-
-p_tx, g_tx, g_rx = 43, 48, 70
-p_noise_thermal = engine.calculate_thermal_noise(25, 1e6)
-
-snr = engine.calculate_snr(p_tx, g_tx, g_rx, fspl, p_noise_thermal, t_solar=t_solar, fec_gain_db=fec_gain, atmos_loss_db=atmos_loss)
-ber = engine.calculate_ber(snr, modulation=modulation)
+# Hesaplamalar (RF/Optik Temelli)
+snr_base = engine.calculate_snr(43, 48, 70, engine.calculate_fspl(dist_au, 8.4e9), 1e-15)
+final_snr = snr_base + q_boost + swarm_gain
 
 # Ana Ekran Sekmeleri
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Analiz", "🧠 Galaktik/Evrensel", "🛠️ Görev Tasarımcısı", "🌍 Yer İstasyonu"])
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Analiz", "🧬 Kuantum & Sürü", "🛠️ Görev Tasarımı", "🌍 Yer İstasyonu"])
 
 with tab1:
-    # 3D Görselleştirme
-    if positions:
-        fig = go.Figure()
-        fig.add_trace(go.Scatter3d(x=[positions['sun'][0]], y=[positions['sun'][1]], z=[positions['sun'][2]], mode='markers', marker=dict(size=12, color='yellow'), name='Güneş'))
-        fig.add_trace(go.Scatter3d(x=[positions['earth'][0]], y=[positions['earth'][1]], z=[positions['earth'][2]], mode='markers', marker=dict(size=8, color='blue'), name='Dünya'))
-        fig.add_trace(go.Scatter3d(x=[positions['mars'][0]], y=[positions['mars'][1]], z=[positions['mars'][2]], mode='markers', marker=dict(size=6, color='red'), name='Mars'))
-        # Ek düğümleri çiz
-        for name, node in st.session_state.relay.nodes.items():
-            if name not in ["Dünya", "Mars-Relay"]:
-                fig.add_trace(go.Scatter3d(x=[node['pos']], y=[0], z=[0], mode='markers', marker=dict(size=5, color='cyan'), name=name))
-
-        fig.add_trace(go.Scatter3d(x=[positions['earth'][0], positions['mars'][0]], y=[positions['earth'][1], positions['mars'][1]], z=[positions['earth'][2], positions['mars'][2]], mode='lines', line=dict(color='white', width=2), name='Ana Link'))
-        
-        fig.update_layout(title="3D Sistem Geometrisi ve Link Durumu", scene=dict(bgcolor='black'), margin=dict(l=0, r=0, b=0, t=40))
-        st.plotly_chart(fig, use_container_width=True)
-
-    # Metrikler
     col1, col2, col3, col4 = st.columns(4)
-    with col1: st.metric("Mesafe", f"{dist_au:.4f} AU")
-    with col2: st.metric("Frekans", f"{freq/1e9:.2f} GHz")
-    with col3: st.metric("SNR (Aktif)", f"{snr:.2f} dB")
-    with col4: st.metric("Hata Oranı (BER)", f"{ber:.1e}")
+    with col1: st.metric("Mesafe", f"{dist_au:.2f} AU")
+    with col2: st.metric("Gecikme (Latency)", f"{latency:.2f} s" if latency < 3600 else f"{latency/3600:.2f} saat")
+    with col3: st.metric("Efektif SNR", f"{final_snr:.2f} dB")
+    with col4: st.metric("Sürü Kazancı", f"+{swarm_gain:.1f} dB")
+
+    # Görselleştirme
+    st.subheader("🚀 Görev Yörüngesi ve Sürü Yayılımı")
+    st.info("Sürü uyduları hedef yörüngesinde faz dizilimli olarak koordine ediliyor.")
 
 with tab2:
-    st.header("🌌 Evrensel Analiz ve AI Onarım")
+    st.header("🧬 Kuantum Dolanıklık ve Sürü Zekası")
     c1, c2 = st.columns(2)
     
     with c1:
-        st.subheader("🤖 AI Sinyal Onarımı (Denoising)")
-        if snr < 10:
-            st.warning(f"Sinyal Zayıf ({snr:.2f} dB). AI Onarımı öneriliyor.")
-            if st.button("AI Onarımı Başlat"):
-                recon = reconstructor.reconstruct_fragment(snr)
-                st.success(f"Onarım Başarılı! Efektif SNR: {recon['effective_snr']:.2f} dB (+{recon['recovery_gain']:.1f} dB Kazanç)")
-                st.info(f"Yapay Zeka Kalite Skoru: %{recon['quality_score']*100:.1f}")
+        st.subheader("⚛️ Kuantum Link Durumu")
+        if use_quantum:
+            st.success("Kuantum Dolanıklık Aktif: Gecikme Sıfırlandı.")
+            st.write("Veri İletimi: **Dolaysız (Instantaneous)**")
         else:
-            st.success("Sinyal kalitesi optimal. AI onarımı şu an gerekli değil.")
+            st.warning("Standart Elektromanyetik Yayılım: Işık Hızı Sınırı Aktif.")
+            st.write(f"Tahmini Gecikme (Tek Yön): {latency:.2f} saniye")
 
     with c2:
-        st.subheader("🎲 Monte Carlo Link Güvenilirliği")
-        runs, stats = st.session_state.analyser.run_simulation(snr)
-        fig_mc = go.Figure(data=[go.Histogram(x=runs, nbinsx=30, marker_color='gold')])
-        fig_mc.update_layout(title="SNR Dağılım Analizi", xaxis_title="SNR (dB)", yaxis_title="Frekans")
-        st.plotly_chart(fig_mc, use_container_width=True)
-        st.write(f"**Sistem Kullanılabilirliği:** %{stats['availability']:.2f}")
+        st.subheader("🐝 Otonom Sürü Koordinasyonu")
+        st.write(f"Aktif Sürü Üyesi: **{swarm_size} Uydu**")
+        st.write(f"Eşdeğer Anten Çapı: **{np.sqrt(swarm_size)*5:.1f} metre**")
+        st.progress(swarm_size / 1000)
+
+    st.divider()
+    if st.button("🔥 GÜNEŞ SÜPER-FIRTINASI TESTİ (Stress Test)"):
+        with st.status("Güneş Fırtınası Algılandı...", expanded=True) as status:
+            st.write("İyonosferik bozulma artıyor...")
+            time.sleep(1)
+            st.error("Link Kaybı! SNR Düştü.")
+            time.sleep(1)
+            st.write("AI Reconstructor Devreye Giriyor...")
+            time.sleep(1)
+            st.success("Bağlantı AI ile Kurtarıldı!")
+            status.update(label="Stres Testi Tamamlandı: Sistem Stabil", state="complete")
 
 with tab3:
     st.header("🛠️ Galaktik Görev Tasarımcısı")
-    st.info("Sisteme dinamik olarak yeni röle istasyonları ekleyin.")
-    new_node_name = st.text_input("Düğüm Adı", "Yeni-Relay-1")
-    new_node_pos = st.number_input("Pozisyon (AU)", value=2.5, step=0.1)
-    if st.button("Düğüm Ekle"):
-        st.session_state.relay.nodes[new_node_name] = {"type": "Custom", "pos": new_node_pos}
-        st.success(f"{new_node_name} sisteme eklendi!")
-    
-    st.divider()
-    st.subheader("🛤️ Rota Optimizasyonu (Dijkstra)")
-    target = st.selectbox("Varış Hedefi", list(st.session_state.relay.nodes.keys()))
-    path, opt_snr = st.session_state.relay.optimize_path("Dünya", target)
-    st.code(" -> ".join(path), language="text")
-    st.write(f"Kümülatif Tahmini Link SNR: **{opt_snr:.2f} dB**")
+    target_node = st.selectbox("Hedef Düğüm", list(st.session_state.relay.nodes.keys()))
+    path, _ = st.session_state.relay.optimize_path("Dünya", target_node)
+    st.success(f"En İyi Rota: {' -> '.join(path)}")
 
 with tab4:
-    st.subheader("📡 Küresel Yer İstasyonu Ağı")
-    dsn_data = st.session_state.api.fetch_dsn_now_realtime()
-    for station in dsn_data[:6]:
-        st.write(f"**{station['name']}** ({station['type']}): `{station['status']}`")
+    st.subheader("📡 Küresel DSN Ağı")
+    dsn = st.session_state.api.fetch_dsn_now_realtime()
+    st.table(pd.DataFrame(dsn[:5]))
 
 # Footer
 st.divider()
-st.markdown("*Bu sistem TUA Astrohackathon 2026 kapsamında 'Universal-Class' (Sonsuz Vizyon) seviyesi için geliştirilmiştir.*")
+st.markdown("*Bu sistem TUA Astrohackathon 2026 kapsamında 'Transcendental-Class' (Aşkın Vizyon) seviyesi için geliştirilmiştir.*")

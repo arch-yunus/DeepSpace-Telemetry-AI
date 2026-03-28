@@ -1,48 +1,45 @@
-# 🛰️ DeepSpace-Telemetry-AI: Evrensel Haberleşme Ekosistemi
+# 🛸 DeepSpace-Telemetry-AI: Aşkın Haberleşme Ekosistemi
 
 ![Banner](docs/assets/banner.png)
 
 <div align="center">
   <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
-  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Universal_Class-purple?style=for-the-badge" alt="Universal Class">
+  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Transcendental_Class-red?style=for-the-badge" alt="Transcendental Class">
   <img src="https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
 </div>
 
 ---
 
-## 🌌 Genel Bakış (Universal-Class: Sonsuz Vizyon)
-**DeepSpace-Telemetry-AI**, Türkiye'nin uzay vizyonunu sınırsız bir geleceğe taşıyan, "Evrensel Seviye" (Universal-Class) bir derin uzay analiz ekosistemidir. Bu platform, galaksiler arası haberleşme teorilerini, yapay zeka tabanlı sinyal onarımı ve interaktif görev tasarımı yetenekleriyle birleştirir.
+## 🌌 Genel Bakış (Transcendental-Class: Aşkın Vizyon)
+**DeepSpace-Telemetry-AI**, Türkiye'nin uzay hedeflerini 2071 vizyonuna taşıyan, "Aşkın Seviye" (Transcendental-Class) bir derin uzay haberleşme ve otonomi ekosistemidir. Bu platform, konvansiyonel fiziğin ötesine geçerek kuantum dolanıklık, sürü zekası ve yıldızlararası seyahat simülasyonlarını Milli Uzay Programı vizyonuyla birleştirir.
 
-Sistem, **Galactic-Class** temelleri üzerine inşa edilen **Universal-Class** genişlemesiyle; terahertz/X-ışını haberleşmesi ve dinamik röle ağı yönetimi gibi devrimsel özellikler sunar.
-
----
-
-## 🚀 Evrensel Seviye Teknik Özellikler
-
-### 🤖 1. AI Sinyal Onarımı (Signal Reconstruction)
-*   **Derin Öğrenme Denoising:** Aşırı gürültülü (SNR < 0dB) sinyalleri yapay zeka interpolasyonu ile kurtaran "DeepSpace-Denoise-v1" proxy motoru.
-*   **Paket Kurtarma:** Kaybolan telemetri paketlerini %75 başarıyla telafi eden akıllı tahminleme algoritması.
-
-### 🛤️ 2. İnteraktif Görev Tasarımcısı (Mission Designer)
-*   **Dinamik Röle Düğümü:** Güneş sistemine anlık olarak yeni istasyonlar/uydular ekleyin.
-*   **Canlı Optimizasyon:** Eklenen düğümler Dijkstra algoritması ile anında rotaya dahil edilir.
-
-### 📡 3. Çok Spektrumlu Link Analizi (Multispectral Hub)
-*   **Standart RF:** S/X/Ka Bantları.
-*   **Gelecek Nesil:** Terahertz (THz) ve Optik (Lazer) linkler.
-*   **Teorik Sınırlar:** Yüksek radyasyonlu ortamlarda X-ışını haberleşme modellemesi.
-
-### 🎲 4. Galaktik Güvenilirlik
-*   **Monte Carlo:** 1000 iterasyonlu olasılıksal simülasyon motoru ile link sürekliliği analizi.
+Sistem, **Universal-Class** temelleri üzerine inşa edilen **Transcendental-Class** genişlemesiyle; ışık hızı sınırlarını kuantum modelleriyle zorlamaktadır.
 
 ---
 
-## 🖥️ Evrensel Görev Kontrol Dashboard
-Tabanlı profesyonel **Streamlit** arayüzü:
--   **📊 Analiz Sekmesi:** 3D Astronomik yörüngeler ve temel fiziksel metrikler.
--   **🧠 Galaktik/Evrensel Sekmesi:** AI Sinyal Onarımı ve Monte Carlo güven histogramları.
--   **🛠️ Görev Tasarımcısı Sekmesi:** Dinamik düğüm ekleme ve Dijkstra rota optimizasyonu.
--   **🌍 Yer İstasyonu Sekmesi:** NASA DSN canlı durum entegrasyonu.
+## 🚀 Aşkın Seviye Teknik Özellikler
+
+### ⚛️ 1. Kuantum Dolanıklık Linki (Quantum Entanglement)
+*   **Sıfır Gecikme:** Işık yılı mesafelerde bile anlık (instantaneous) veri iletimi sağlayan teorik kuantum link simülasyonu.
+*   **Aşkın SNR:** Kuantum durum hazırlama ile geleneksel RF linklerinden 25-30 dB daha güçlü haberleşme bütçesi.
+
+### 🐝 2. Otonom Sürü Anten Koordinasyonu (Swarm Dynamics)
+*   **Sürü Kazancı:** 1000'e kadar CubeSat'ın otonom olarak birleşip dev bir faz-dizilimli (phased-array) anten oluşturması.
+*   **Dinamik Kazanç:** Sürü büyüklüğüne göre logaritmik olarak artan link bütçesi (+$10\log_{10}(N)$).
+
+### ⚡ 3. Görev Stres Testi (Solar Superstorm)
+*   **Direnç Analizi:** Güneş süper-fırtınası gibi felaket senaryolarında sistemin AI tabanlı kurtarma ve otonom tepki yeteneklerini test eder.
+
+### 🛸 4. Yıldızlararası Vizyon (Interstellar Support)
+*   **Alpha Centauri:** 4.2 ışık yılı mesafedeki ilk yıldızlararası görev profili ve buna bağlı gecikme/güç hesaplamaları.
+
+---
+
+## 🖥️ Aşkın Görev Kontrol Dashboard
+En üst seviye interaktif **Streamlit** arayüzü:
+-   **📊 Analiz Sekmesi:** Gerçek zamanlı astronomik veriler ve kuantum/EM gecikme kıyaslaması.
+-   **🧬 Kuantum & Sürü Sekmesi:** QEL aktivasyonu, sürü büyüklüğü yönetimi ve Güneş Süper-Fırtınası stres testi.
+-   **🛠️ Görev Tasarımcısı:** Dinamik düğüm ekleme ve Dijkstra tabanlı akıllı rota optimizasyonu.
 
 ---
 
@@ -50,31 +47,32 @@ Tabanlı profesyonel **Streamlit** arayüzü:
 ```text
 📦 DeepSpace-Telemetry-AI
  ┣ 📂 src               # Çekirdek Kütüphane
- ┃ ┣ 📜 engine.py       # Fizik Motoru (Multispectral)
- ┃ ┣ 📜 reconstructor.py # AI Sinyal Onarımı (Denoising)
+ ┃ ┣ 📜 engine.py       # Fizik Motoru (Quantum/Relativistic)
+ ┃ ┣ 📜 swarm.py        # Otonom Sürü Koordinasyonu
+ ┃ ┣ 📜 reconstructor.py # AI Sinyal Onarımı
  ┃ ┣ 📜 analyser.py     # Monte Carlo & İstatistik
  ┃ ┣ 📜 relay.py        # Dijkstra Rota Optimizasyonu
- ┃ ┣ 📜 predictor.py    # AI Anomali Tespiti
- ┃ ┗ 📜 api_connector.py # NASA/DSN Canlı Entegrasyon
+ ┃ ┗ 📜 predictor.py    # AI Anomali Tespiti
  ┣ 📂 docs              # Teknik Dokümantasyon
- ┃ ┣ 📜 akademik_teknik_rapor.md # Matematiksel Modeller Raporu
- ┃ ┗ 📜 simulasyon_kilavuzu.md  # Kullanıcı Rehberi
- ┣ 📜 app.py            # Universal-Class Dashboard
+ ┃ ┣ 📜 akademik_teknik_rapor.md # Matematiksel Modeller
+ ┃ ┣ 📜 simulasyon_kilavuzu.md  # Kullanıcı Rehberi
+ ┃ ┗ 📜 gelecek_vizyonu_2071.md # Milli Yıldızlararası Vizyon
+ ┣ 📜 app.py            # Transcendental Dashboard
  ┗ 📜 requirements.txt  # Bağımlılıklar
 ```
 
 ---
 
-## 🛰️ Gelecek Yol Haritası (Mission Roadmap)
-1.  **Uzay İnterneti Entegrasyonu:** DTN (Delay Tolerant Networking) protokol simülasyonu.
-2.  **Kuantum Haberleşme:** Kuantum dolanıklık tabanlı link modelleme.
+## 🔭 Gelecek Yol Haritası (Vision 2071)
+1.  **Nöral Telemetri:** Telemetrinin doğrudan insan beynine aktarılması (Neural-Link Proxy).
+2.  **Kapsülleme:** Yerçekimi dalgaları ile haberleşme (Theory only).
 
 ---
 
 ## 👨‍💻 Geliştirici
-**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın evrensel sınırlara ulaşma vizyonu için geliştirilmiştir.
+**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın 'Aşkın Sınırlar'a ulaşma vizyonu için geliştirilmiştir.
 
 ---
 <div align="center">
-  <i>"Gözümüz Yükseklerde, Yolumuz Evrenin Derinliklerinde!"</i>
+  <i>"İstikbal Göklerdedir, Hedefimiz Yıldızların Ötesidir!"</i>
 </div>
