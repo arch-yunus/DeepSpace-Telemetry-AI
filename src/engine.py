@@ -10,12 +10,14 @@ class TelemetryEngine:
         self.C = 299792458  # Işık hızı (m/s)
         self.KB = 1.380649e-23  # Boltzmann sabiti (J/K)
         
-        # Standart Frekans Bantları (Hz)
+        # Standart ve Teorik Frekans Bantları (Hz)
         self.frequencies = {
-            "S": 2.2e9,   # Ay görevleri için standart
-            "X": 8.4e9,   # Derin uzay standartı
-            "Ka": 32.0e9, # Yüksek veri hızı standartı
-            "Optical": 1.93e14 # 1550nm Lazer
+            "S": 2.2e9,      # Ay görevleri
+            "X": 8.4e9,      # Derin uzay standartı
+            "Ka": 32.0e9,    # Yüksek veri hızı
+            "THz": 3.0e11,   # Terahertz (Gelecek nesil)
+            "Optical": 1.93e14, # 1550nm Lazer
+            "X-ray": 3.0e18  # X-ışını haberleşmesi (Teorik)
         }
 
     def get_tua_mission_params(self, mission_name="Ay Projesi"):

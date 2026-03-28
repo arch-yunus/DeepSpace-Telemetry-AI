@@ -1,44 +1,48 @@
-# 🛰️ DeepSpace-Telemetry-AI: Galaktik Haberleşme Ekosistemi
+# 🛰️ DeepSpace-Telemetry-AI: Evrensel Haberleşme Ekosistemi
 
 ![Banner](docs/assets/banner.png)
 
 <div align="center">
   <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
-  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Galactic_Class-gold?style=for-the-badge" alt="Galactic Class">
+  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Universal_Class-purple?style=for-the-badge" alt="Universal Class">
   <img src="https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
 </div>
 
 ---
 
-## 🌌 Genel Bakış (Galactic-Class)
-**DeepSpace-Telemetry-AI**, Türkiye'nin uzay vizyonunu yıldızlararası seviyeye taşıyan, akademik derinlikli bir haberleşme simülasyon ve analiz ekosistemidir. Bu platform, yalnızca link bütçesi hesaplamakla kalmaz; olasılıksal risk analizi, rota optimizasyonu ve fiziksel anomali tespiti yaparak görev kontrol ekiplerine stratejik karar desteği sunar.
+## 🌌 Genel Bakış (Universal-Class: Sonsuz Vizyon)
+**DeepSpace-Telemetry-AI**, Türkiye'nin uzay vizyonunu sınırsız bir geleceğe taşıyan, "Evrensel Seviye" (Universal-Class) bir derin uzay analiz ekosistemidir. Bu platform, galaksiler arası haberleşme teorilerini, yapay zeka tabanlı sinyal onarımı ve interaktif görev tasarımı yetenekleriyle birleştirir.
 
-Sistem, **Master-Class** temelleri üzerine inşa edilen **Galactic-Class** genişlemesiyle; Dijkstra tabanlı röle ağları ve Monte Carlo yöntemli güvenilirlik modellerini içermektedir.
-
----
-
-## 🚀 Zirve Seviye Teknik Özellikler
-
-### 🛤️ 1. Dijkstra Rota Optimizasyonu (Relay Optimization)
-*   **Akıllı Ağ:** Dünya'dan derin uzay sondasına kadar olan yolda (Moon-Gateway, Mars-Relay düğümleri üzerinden) en yüksek kümülatif SNR değerini sunan rotayı otomatik belirler.
-*   **Dinamik Rota:** Düğümlerin konumuna göre anlık olarak en verimli haberleşme yolunu hesaplar.
-
-### 🎲 2. Monte Carlo Güven Analizi (Statistical Reliability)
-*   **1000+ Senaryo:** Atmosferik türbülans, güneş gürültüsü ve iyonosferik bozulmaları olasılıksal motorla simüle eder.
-*   **Link Kullanılabilirliği:** Haberleşmenin hangi oranda (örneğin %99.9) kesintisiz devam edebileceğini istatistiksel olarak raporlar.
-
-### 📡 3. Çok Disiplinli Fizik Motoru (RF & Optik)
-*   **Lazer (Optik):** 1550nm lazer linkleri için foton istatistikleri ve yönelim hatası analizi.
-*   **RF S-Band/X/Ka:** CCSDS uyumlu modülasyonlar (BPSK'dan 16-APSK'ya) ve ITU-R sönümleme modelleri.
-*   **NASA DSN Entegrasyonu:** NASA'nın "DSN Now" servisinden alınan canlı verilerle operasyonel uyumluluk.
+Sistem, **Galactic-Class** temelleri üzerine inşa edilen **Universal-Class** genişlemesiyle; terahertz/X-ışını haberleşmesi ve dinamik röle ağı yönetimi gibi devrimsel özellikler sunar.
 
 ---
 
-## 🖥️ Galactic Görev Kontrol Dashboard
-Yenilenen **Streamlit** arayüzü, üç ana uzmanlık sekmesi sunar:
--   **📊 Standart Analiz:** 3D yörünge mekaniği ve temel link metrikleri.
--   **🧠 Galaktik Analiz Araçları:** Monte Carlo Histogramları ve Dijkstra Rota sonuçları.
--   **🌍 Yer Segmenti:** NASA DSN canlı istasyon durumu ve atmosferik kayıplar.
+## 🚀 Evrensel Seviye Teknik Özellikler
+
+### 🤖 1. AI Sinyal Onarımı (Signal Reconstruction)
+*   **Derin Öğrenme Denoising:** Aşırı gürültülü (SNR < 0dB) sinyalleri yapay zeka interpolasyonu ile kurtaran "DeepSpace-Denoise-v1" proxy motoru.
+*   **Paket Kurtarma:** Kaybolan telemetri paketlerini %75 başarıyla telafi eden akıllı tahminleme algoritması.
+
+### 🛤️ 2. İnteraktif Görev Tasarımcısı (Mission Designer)
+*   **Dinamik Röle Düğümü:** Güneş sistemine anlık olarak yeni istasyonlar/uydular ekleyin.
+*   **Canlı Optimizasyon:** Eklenen düğümler Dijkstra algoritması ile anında rotaya dahil edilir.
+
+### 📡 3. Çok Spektrumlu Link Analizi (Multispectral Hub)
+*   **Standart RF:** S/X/Ka Bantları.
+*   **Gelecek Nesil:** Terahertz (THz) ve Optik (Lazer) linkler.
+*   **Teorik Sınırlar:** Yüksek radyasyonlu ortamlarda X-ışını haberleşme modellemesi.
+
+### 🎲 4. Galaktik Güvenilirlik
+*   **Monte Carlo:** 1000 iterasyonlu olasılıksal simülasyon motoru ile link sürekliliği analizi.
+
+---
+
+## 🖥️ Evrensel Görev Kontrol Dashboard
+Tabanlı profesyonel **Streamlit** arayüzü:
+-   **📊 Analiz Sekmesi:** 3D Astronomik yörüngeler ve temel fiziksel metrikler.
+-   **🧠 Galaktik/Evrensel Sekmesi:** AI Sinyal Onarımı ve Monte Carlo güven histogramları.
+-   **🛠️ Görev Tasarımcısı Sekmesi:** Dinamik düğüm ekleme ve Dijkstra rota optimizasyonu.
+-   **🌍 Yer İstasyonu Sekmesi:** NASA DSN canlı durum entegrasyonu.
 
 ---
 
@@ -46,23 +50,31 @@ Yenilenen **Streamlit** arayüzü, üç ana uzmanlık sekmesi sunar:
 ```text
 📦 DeepSpace-Telemetry-AI
  ┣ 📂 src               # Çekirdek Kütüphane
- ┃ ┣ 📜 engine.py       # Fizik Motoru (RF/Optik)
- ┃ ┣ 📜 analyser.py     # Monte Carlo & Isı Haritaları
+ ┃ ┣ 📜 engine.py       # Fizik Motoru (Multispectral)
+ ┃ ┣ 📜 reconstructor.py # AI Sinyal Onarımı (Denoising)
+ ┃ ┣ 📜 analyser.py     # Monte Carlo & İstatistik
  ┃ ┣ 📜 relay.py        # Dijkstra Rota Optimizasyonu
  ┃ ┣ 📜 predictor.py    # AI Anomali Tespiti
  ┃ ┗ 📜 api_connector.py # NASA/DSN Canlı Entegrasyon
  ┣ 📂 docs              # Teknik Dokümantasyon
- ┃ ┗ 📜 akademik_teknik_rapor.md # Matematiksel Modeller Raporu
- ┣ 📜 app.py            # Galactic-Class Dashboard
+ ┃ ┣ 📜 akademik_teknik_rapor.md # Matematiksel Modeller Raporu
+ ┃ ┗ 📜 simulasyon_kilavuzu.md  # Kullanıcı Rehberi
+ ┣ 📜 app.py            # Universal-Class Dashboard
  ┗ 📜 requirements.txt  # Bağımlılıklar
 ```
 
 ---
 
+## 🛰️ Gelecek Yol Haritası (Mission Roadmap)
+1.  **Uzay İnterneti Entegrasyonu:** DTN (Delay Tolerant Networking) protokol simülasyonu.
+2.  **Kuantum Haberleşme:** Kuantum dolanıklık tabanlı link modelleme.
+
+---
+
 ## 👨‍💻 Geliştirici
-**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın teknik mükemmeliyet hedefleri doğrultusunda geliştirilmiştir.
+**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın evrensel sınırlara ulaşma vizyonu için geliştirilmiştir.
 
 ---
 <div align="center">
-  <i>"Gözümüz Yükseklerde, Yolumuz Yıldızlar arası!"</i>
+  <i>"Gözümüz Yükseklerde, Yolumuz Evrenin Derinliklerinde!"</i>
 </div>
