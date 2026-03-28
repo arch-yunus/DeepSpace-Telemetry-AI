@@ -1,5 +1,7 @@
 # 🛰️ DeepSpace-Telemetry-AI: Galaktik Haberleşme Ekosistemi
 
+![Banner](docs/assets/banner.png)
+
 <div align="center">
   <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
   <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Galactic_Class-gold?style=for-the-badge" alt="Galactic Class">
