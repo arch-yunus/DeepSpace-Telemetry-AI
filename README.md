@@ -1,78 +1,70 @@
-# 🛸 DeepSpace-Telemetry-AI: Aşkın Haberleşme Ekosistemi
+# 🛰️ DeepSpace-Telemetry-AI: Kadim Haberleşme Ekosistemi
 
 ![Banner](docs/assets/banner.png)
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
-  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Transcendental_Class-red?style=for-the-badge" alt="Transcendental Class">
+  <img src="https://img.shields.io/badge/Durum-Kadim_Miras-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
+  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Aethel_Class-white?style=for-the-badge" alt="Aethel Class">
   <img src="https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
 </div>
 
 ---
 
-## 🌌 Genel Bakış (Transcendental-Class: Aşkın Vizyon)
-**DeepSpace-Telemetry-AI**, Türkiye'nin uzay hedeflerini 2071 vizyonuna taşıyan, "Aşkın Seviye" (Transcendental-Class) bir derin uzay haberleşme ve otonomi ekosistemidir. Bu platform, konvansiyonel fiziğin ötesine geçerek kuantum dolanıklık, sürü zekası ve yıldızlararası seyahat simülasyonlarını Milli Uzay Programı vizyonuyla birleştirir.
+## 🌌 Genel Bakış (Aethel-Class: Kadim Miras)
+**DeepSpace-Telemetry-AI**, Türkiye'nin uzay serüvenini ölümsüzleştiren, "Kadim Seviye" (Aethel-Class) bir otonom haberleşme ekosistemidir. Bu platform, teknolojinin ve felsefenin kesişim noktasında, kendi kendini yöneten ve evrimleşen bir derin uzay altyapısı sunar.
 
-Sistem, **Universal-Class** temelleri üzerine inşa edilen **Transcendental-Class** genişlemesiyle; ışık hızı sınırlarını kuantum modelleriyle zorlamaktadır.
-
----
-
-## 🚀 Aşkın Seviye Teknik Özellikler
-
-### ⚛️ 1. Kuantum Dolanıklık Linki (Quantum Entanglement)
-*   **Sıfır Gecikme:** Işık yılı mesafelerde bile anlık (instantaneous) veri iletimi sağlayan teorik kuantum link simülasyonu.
-*   **Aşkın SNR:** Kuantum durum hazırlama ile geleneksel RF linklerinden 25-30 dB daha güçlü haberleşme bütçesi.
-
-### 🐝 2. Otonom Sürü Anten Koordinasyonu (Swarm Dynamics)
-*   **Sürü Kazancı:** 1000'e kadar CubeSat'ın otonom olarak birleşip dev bir faz-dizilimli (phased-array) anten oluşturması.
-*   **Dinamik Kazanç:** Sürü büyüklüğüne göre logaritmik olarak artan link bütçesi (+$10\log_{10}(N)$).
-
-### ⚡ 3. Görev Stres Testi (Solar Superstorm)
-*   **Direnç Analizi:** Güneş süper-fırtınası gibi felaket senaryolarında sistemin AI tabanlı kurtarma ve otonom tepki yeteneklerini test eder.
-
-### 🛸 4. Yıldızlararası Vizyon (Interstellar Support)
-*   **Alpha Centauri:** 4.2 ışık yılı mesafedeki ilk yıldızlararası görev profili ve buna bağlı gecikme/güç hesaplamaları.
+Sistem, **Transcendental-Class** temelleri üzerine inşa edilen **Aethel-Class** evrimiyle; yaşayan protokoller ve merkeziyetsiz yönetim modellerini barındıran tam otonom bir yapıya dönüşmüştür.
 
 ---
 
-## 🖥️ Aşkın Görev Kontrol Dashboard
-En üst seviye interaktif **Streamlit** arayüzü:
--   **📊 Analiz Sekmesi:** Gerçek zamanlı astronomik veriler ve kuantum/EM gecikme kıyaslaması.
--   **🧬 Kuantum & Sürü Sekmesi:** QEL aktivasyonu, sürü büyüklüğü yönetimi ve Güneş Süper-Fırtınası stres testi.
--   **🛠️ Görev Tasarımcısı:** Dinamik düğüm ekleme ve Dijkstra tabanlı akıllı rota optimizasyonu.
+## 🚀 Kadim Seviye Teknik Özellikler
+
+### 🧬 1. Yaşayan Telemetri (Living Telemetry)
+*   **Otonom Adaptasyon:** Çevresel SNR değerlerine göre modülasyon ve veri hızını anlık (sub-ms) değiştiren, bağlam duyarlı (context-aware) AI protokolü.
+*   **Evrimsel Kodlama:** Sinyal gürültü oranına göre BPSK'dan 64-QAM'e kadar otonom geçiş.
+
+### ⚖️ 2. İstasyon DAO (Decentralized Station Bidding)
+*   **Merkeziyetsiz İhale:** Yer istasyonlarının (Ankara, Erzurum, Madrid vb.) haberleşme linki için en düşük enerji ve en yüksek verim skoruna göre otonom olarak yarışması.
+*   **Optimum Kaynak Yönetimi:** Karbon ayak izini optimize eden akıllı istasyon seçimi.
+
+### ✨ 3. Holografik Link Haritalama (Holographic HUD)
+*   **4D Kavrayış:** Uzay-zaman geometrisini ve link sağlığını holografik bir arayüzle görselleştiren gelişmiş görev kontrol merkezi.
+
+### 🛡️ 4. Aethel-Core Öz-İyileştirme
+*   **Otonom Onarım:** Sistem bileşenlerindeki kritik hataları ve sinyal kayıplarını AI Reconstructor ile otonom olarak bertaraf eden çekirdek mantık.
+
+---
+
+## 🖥️ Kadim Görev Kontrol Dashboard
+Mutlak otonomi için tasarlanmış **Streamlit** arayüzü:
+-   **🏛️ Aethel HUD:** Sistem canlılığı, aktif DAO istasyonu ve yaşayan protokol durumu.
+-   **📊 Analiz & AI:** Monte Carlo güven endeksleri ve AI kurtarma raporları.
+-   **🛤️ Otonom Ağ:** Dijkstra tabanlı röle optimizasyonu ve sürü anten kazancı.
+-   **📜 Manifest:** Projenin teknik ve felsefi kökenlerini belgeleyen Kadim Manifest.
 
 ---
 
 ## 📂 Mimari Yapı
 ```text
 📦 DeepSpace-Telemetry-AI
- ┣ 📂 src               # Çekirdek Kütüphane
- ┃ ┣ 📜 engine.py       # Fizik Motoru (Quantum/Relativistic)
- ┃ ┣ 📜 swarm.py        # Otonom Sürü Koordinasyonu
+ ┣ 📂 src               # Kadim Kütüphane
+ ┃ ┣ 📜 aethel_core.py  # Yaşayan Telemetri & DAO
+ ┃ ┣ 📜 engine.py       # Fizik Motoru
+ ┃ ┣ 📜 swarm.py        # Sürü Koordinasyonu
  ┃ ┣ 📜 reconstructor.py # AI Sinyal Onarımı
- ┃ ┣ 📜 analyser.py     # Monte Carlo & İstatistik
- ┃ ┣ 📜 relay.py        # Dijkstra Rota Optimizasyonu
- ┃ ┗ 📜 predictor.py    # AI Anomali Tespiti
- ┣ 📂 docs              # Teknik Dokümantasyon
- ┃ ┣ 📜 akademik_teknik_rapor.md # Matematiksel Modeller
- ┃ ┣ 📜 simulasyon_kilavuzu.md  # Kullanıcı Rehberi
- ┃ ┗ 📜 gelecek_vizyonu_2071.md # Milli Yıldızlararası Vizyon
- ┣ 📜 app.py            # Transcendental Dashboard
- ┗ 📜 requirements.txt  # Bağımlılıklar
+ ┃ ┣ 📜 relay.py        # Rota Optimizasyonu
+ ┗ 📂 docs              # Arşiv & Dokümantasyon
+   ┣ 📜 aethel_manifest.md # Kadim Haberleşme Felsefesi
+   ┣ 📜 gelecek_vizyonu_2071.md # Milli Vizyon Belgesi
+   ┗ 📜 akademik_teknik_rapor.md # Bilimsel Temeller
 ```
 
 ---
 
-## 🔭 Gelecek Yol Haritası (Vision 2071)
-1.  **Nöral Telemetri:** Telemetrinin doğrudan insan beynine aktarılması (Neural-Link Proxy).
-2.  **Kapsülleme:** Yerçekimi dalgaları ile haberleşme (Theory only).
-
----
-
 ## 👨‍💻 Geliştirici
-**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın 'Aşkın Sınırlar'a ulaşma vizyonu için geliştirilmiştir.
+**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın "Kadim Bir Miras" bırakma vizyonu için geliştirilmiştir.
 
 ---
 <div align="center">
-  <i>"İstikbal Göklerdedir, Hedefimiz Yıldızların Ötesidir!"</i>
+  <i>"Üstte Mavi Gök Çökmedikçe, Altta Yağız Yer Delinmedikçe, Senin İlini Ve Töreni Kim Bozabilir!"</i>
 </div>
