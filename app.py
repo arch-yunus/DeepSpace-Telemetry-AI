@@ -27,6 +27,9 @@ rain_rate = st.sidebar.slider("Rain Rate (mm/h)", 0, 50, 0)
 engine = TelemetryEngine()
 predictor = TelemetryPredictor()
 scheduler = DSNScheduler()
+api = SpaceWeatherAPI()
+from src.relay import MissionRelay
+relay = MissionRelay(engine)
 
 # Astronomical Data
 dist_au, sep_angle, positions = engine.get_planetary_positions(sim_date.strftime("%Y-%m-%d"))
