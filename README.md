@@ -62,14 +62,17 @@ $$SNR_{dB} = 10 \log_{10} \left( \frac{P_r}{P_N + P_{cme} + P_{iono}} \right)$$
 
 ```text
 DeepSpace-Telemetry-AI/
-├── docs/                       # Teorik raporlar ve dokümantasyon
+├── app.py                      # Streamlit Interactive Dashboard
+├── docs/                       # Teorik raporlar ve grafikler
 ├── data/                       # Tarihsel CME ve TEC veri setleri
 ├── src/                        # Çekirdek motor ve modüller
-│   ├── engine.py               # Fiziksel denklemler ve hesaplamalar
+│   ├── engine.py               # BER/FEC modelleri ve fiziksel denklemler
+│   ├── predictor.py            # AI SNR Tahminleyici
 │   ├── api_connector.py        # Dış veri entegrasyonu
-│   └── utils.py                # Yardımcı fonksiyonlar
+│   └── scheduler.py            # DSN İstasyon Seçici (Multi-node)
 ├── simulations/                # Simülasyon senaryoları
-│   └── run_simulation.py      # Ana simülasyon koşturucu
+│   ├── run_simulation.py      # Temel simülasyon
+│   └── trajectory_sim.py      # 30 günlük görev simülasyonu
 ├── LICENSE                     # MIT Lisansı
 ├── requirements.txt            # Bağımlılıklar
 └── README.md                   # Proje ana belgesi
@@ -78,19 +81,28 @@ DeepSpace-Telemetry-AI/
 ---
 
 ## 💻 Kurulum ve Simülasyon
-Geliştirilen fizik motorunu yerel ortamınızda çalıştırarak, X-Band bir sinyalin Dünya'ya ulaşana kadar ne kadar bozulduğunu test etmek için:
+Geliştirilen sistemi yerel ortamınızda çalıştırmak için:
 
+### 1. Etkileşimli Dashboard (Önerilen)
+Gerçek zamanlı parametre analizi için:
 ```bash
-# Depoyu klonlayın
-git clone https://github.com/arch-yunus/DeepSpace-Telemetry-AI.git
-cd DeepSpace-Telemetry-AI
-
-# Gerekli bilimsel kütüphaneleri yükleyin
 pip install -r requirements.txt
-
-# Mars mesafesinden gönderilen bir sinyalin gürültü analizini başlatın
-python simulations/run_simulation.py --distance_au 1.52 --band "X" --tec_level "High"
+streamlit run app.py
 ```
+
+### 2. Yörünge Simülasyonu
+30 günlük bir transiti analiz etmek ve grafik üretmek için:
+```bash
+python simulations/trajectory_sim.py
+```
+
+---
+
+## 🌓 Proje Özellikleri (+Phase 3)
+- **Hata Oranı (BER) Analizi:** BPSK/QPSK modülasyonları için teorik Bit Error Rate hesaplaması.
+- **FEC Kazancı:** Reed-Solomon, Turbo ve LDPC kodlama tekniklerinin sinyal üzerindeki iyileştirici etkisi.
+- **Akıllı DSN Zamanlayıcı:** Uzay aracının konumuna göre en uygun yer istasyonunun (Goldstone, Madrid, Canberra) otomatik seçimi.
+- **Yapay Zeka Destekli Tahmin:** Güneş akısı verileriyle SNR düşüşlerini önceden raporlama.
 
 ---
 
