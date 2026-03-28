@@ -1,49 +1,49 @@
-# 🛰️ DeepSpace-Telemetry-AI: Interstellar-Class Technical Ecosystem
+# 🛰️ DeepSpace-Telemetry-AI: Milli Uzay Teknolojileri Ekosistemi
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Status-Mission_Ready-success?style=for-the-badge&logo=nasa" alt="Mission Ready">
-  <img src="https://img.shields.io/badge/Class-Interstellar-blueviolet?style=for-the-badge&logo=starship" alt="Interstellar Class">
-  <img src="https://img.shields.io/badge/Event-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
+  <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
+  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Milli_Vizyon-red?style=for-the-badge" alt="Milli Vizyon">
+  <img src="https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
 </div>
 
 ---
 
-## 🌌 Overview
-**DeepSpace-Telemetry-AI** is a state-of-the-art simulation and analysis platform for deep space communication. It bridges the gap between theoretical astrophysics and operational telecommunications, providing a high-fidelity environment for mission planning, signal optimization, and predictive maintenance.
+## 🌌 Genel Bakış
+**DeepSpace-Telemetry-AI**, Türkiye'nin derin uzay hedefleri (Ay Projesi, Mars ve ötesi) için haberleşme linklerini yüksek sadakatle modelleyen, analiz eden ve yapay zeka ile optimize eden yerli bir simülasyon platformudur.
 
-From **Skyfield-driven orbital mechanics** to **CCSDS-standard modulation analysis** and **Optical (Laser) communication modeling**, this ecosystem is designed for the future of humanity's expansion into the solar system and beyond.
-
----
-
-## 🚀 Core Pillars of Technology
-
-### 📡 1. High-Fidelity Physics Engine
-*   **Orbital Precision:** Leverages NASA/JPL DE421 ephemeris for real-time planetary positioning.
-*   **Propagation Models:** FSPL, Atmospheric Gas/Rain attenuation (ITU-R P.676), and Ionospheric Scintillation (Nakagami-m).
-*   **Solar Interference:** Dynamic Sun-Earth-Probe (SEP) angle noise temperature modeling.
-
-### 💡 2. Next-Gen Communication
-*   **RF Standards:** CCSDS-compliant BPSK, QPSK, 8-PSK, and 16-APSK modulation curves.
-*   **Optical (Laser) Links:** Photon-counting statistics, pointing jitter analysis, and beam divergence modeling for 1550nm laser links.
-*   **Relay Logic:** Multi-hop mission simulation (Lander → Orbiter → DSN).
-
-### 🤖 3. AI & Prediction
-*   **SNR Forecasting:** Trend prediction based on solar flux and historic telemetry telemetry.
-*   **Anomaly Detection:** 3-Sigma statistical engine to flag signal glitches (Autoencoder-ready).
-*   **DSN Integration:** Real-time data ingestion from NASA's Deep Space Network (DSN Now).
+Bu ekosistem, teorik astrofizik verilerini operasyonel telekomünikasyon standartlarıyla birleştirerek; **Skyfield tabanlı yörünge mekaniği**, **CCSDS standartlarında modülasyon analizi** ve **Lazer (Optik) haberleşme modelleme** yeteneklerini tek bir platformda sunar.
 
 ---
 
-## 🖥️ Interactive Omega Dashboard
-The project features a **Streamlit** dashboard for mission control and analysis.
+## 🚀 Temel Teknoloji Sütunları
 
-### Features:
--   **3D Orbit View:** Interactive Plotly visualization of Sun, Earth, Mars, and the communication vector.
--   **Link Budget Analyzer:** Real-time calculations of SNR, BER, and Capacity.
--   **Mission Profiles:** Pre-set scenarios for Mars Transit, Lunar Orbit, and Jupiter Flyby.
--   **DSN Live Status:** Integrated view of active NASA ground stations.
+### 📡 1. Yüksek Hassasiyetli Fizik Motoru
+*   **Yörünge Hassasiyeti:** NASA/JPL DE421 ephemeris verileri kullanılarak Dünya ve hedef gezegen konumları anlık hesaplanır.
+*   **Yayılım Modelleri:** FSPL, Atmosferik Gaz/Yağmur sönümlenmesi (ITU-R P.676) ve İyonosferik Sintilasyon (Nakagami-m).
+*   **Güneş Girişimi:** Sun-Earth-Probe (SEP) açısına bağlı dinamik gürültü sıcaklığı modellemesi.
 
-### Quick Start:
+### 💡 2. İleri Seviye Haberleşme Modelleri
+*   **RF Standartları:** CCSDS uyumlu BPSK, QPSK, 8-PSK ve 16-APSK modülasyon performans analizleri.
+*   **Optik (Lazer) Bağlantılar:** 1550nm lazer linkleri için foton sayma istatistikleri ve yönelim hatası (jitter) analizleri.
+*   **Milli Görev Profilleri:** TUA Ay Projesi ve derin uzay testleri için özelleştirilmiş parametreler.
+
+### 🤖 3. Yapay Zeka ve Tahminleme
+*   **SNR Tahmini:** Güneş akısı ve geçmiş verilere dayalı sinyal kalitesi trend analizi.
+*   **Anomali Tespiti:** Sinyaldeki ani düşüşleri ve fiziksel tutarsızlıkları 3-Sigma motoru ile yakalama.
+*   **Canlı Veri:** NASA Deep Space Network (DSN Now) üzerinden anlık istasyon durumu entegrasyonu.
+
+---
+
+## 🖥️ İnteraktif Milli Vizyon Dashboard
+Proje, görev kontrol personeli için profesyonel bir **Streamlit** arayüzü sunar.
+
+### Özellikler:
+-   **3D Yörünge Görünümü:** Sun, Dünya ve hedef gezegenlerin anlık konumları ve haberleşme vektörü.
+-   **Link Bütçesi Analizörü:** SNR, BER ve Kapasite değerlerinin gerçek zamanlı hesaplanması.
+-   **TUA Görev Profilleri:** Ay Projesi, Mars Testi ve Jüpiter Flyby senaryoları.
+-   **DSN Canlı Durum:** Aktif yer istasyonlarının anlık çalışma durumları.
+
+### Hızlı Başlangıç:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
@@ -51,37 +51,28 @@ streamlit run app.py
 
 ---
 
-## 📂 Architecture
+## 📂 Mimari Yapı
 ```text
 📦 DeepSpace-Telemetry-AI
- ┣ 📂 src              # Core Engine Modules
- ┃ ┣ 📜 engine.py      # Physics & Modulation (RF/Optical)
- ┃ ┣ 📜 predictor.py   # AI Forecasting & Anomaly Detection
- ┃ ┣ 📜 relay.py       # Multi-hop Relay Logic
- ┃ ┣ 📜 scheduler.py   # DSN Station Allocation
- ┃ ┗ 📜 api_connector.py # NASA DSN Now & SpaceWeather APIs
- ┣ 📂 simulations      # Mission Scenarios
- ┣ 📂 docs             # Technical Reports & Graphics
- ┣ 📜 app.py           # Streamlit Web UI
- ┗ 📜 requirements.txt # System Dependencies
+ ┣ 📂 src              # Çekirdek Kütüphane
+ ┃ ┣ 📜 engine.py      # Fizik ve Modülasyon (RF/Optik)
+ ┃ ┣ 📜 predictor.py   # AI Tahmin ve Anomali Tespiti
+ ┃ ┣ 📜 relay.py       # Çok Sıçramalı Röle Mantığı
+ ┃ ┣ 📜 scheduler.py   # DSN İstasyon Atayıcı
+ ┃ ┗ 📜 api_connector.py # NASA DSN ve Uzay Havası API'leri
+ ┣ 📂 simulations      # Görev Senaryoları
+ ┣ 📂 docs             # Teknik Raporlar ve Grafikler
+ ┣ 📜 app.py           # Streamlit Milli Vizyon Dashboard
+ ┗ 📜 requirements.txt # Sistem Bağımlılıkları
 ```
 
 ---
 
-## 🌗 Mathematical Foundations
-The system is built on rigorous academic literature, including:
--   **Friis Transmission Equation** for link budgets.
--   **Nyquist-Shannon** for theoretical channel capacity.
--   **ITU-R P.676** for atmospheric gaseous attenuation.
--   **Nakagami-m** for ionospheric scintillation fading math.
-
----
-
-## 👨‍💻 Developed by
-**Yunus Emre** | Multi-Disciplinary Systems Designer | AI & Space Science Implementation  
-Developed specifically for the **TUA Astrohackathon 2026**.
+## 👨‍💻 Geliştirici
+**Yunus Emre** | Çok Disiplinli Sistem Tasarımcısı | Yapay Zeka ve Uzay Bilimleri Uygulayıcısı  
+**TUA Astrohackathon 2026** kapsamında Türk Uzay Programı vizyonu için geliştirilmiştir.
 
 ---
 <div align="center">
-  <i>"Ad Astra Per Aspera"</i>
+  <i>"İstikbal Göklerdedir!"</i>
 </div>

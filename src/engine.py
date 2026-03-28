@@ -2,19 +2,32 @@ import numpy as np
 
 class TelemetryEngine:
     """
-    Core physics engine for Deep Space Telemetry degradation analysis.
-    Implements Friis transmission, Ionospheric delay, and Thermal noise models.
+    Derin uzay haberleşme linklerini modelleyen gelişmiş fizik motoru.
+    Milli Uzay Programı hedefleri doğrultusunda yüksek sadakatli (high-fidelity) veriler üretir.
     """
     
-    # Constants
-    C = 299792458  # Speed of light (m/s)
-    KB = 1.380649e-23  # Boltzmann constant (J/K)
-    
     def __init__(self):
+        self.C = 299792458  # Işık hızı (m/s)
+        self.KB = 1.380649e-23  # Boltzmann sabiti (J/K)
+        
+        # Standart Frekans Bantları (Hz)
         self.frequencies = {
-            "X": 8.4e9,   # X-Band (8.4 GHz)
-            "Ka": 32.0e9  # Ka-Band (32.0 GHz)
+            "S": 2.2e9,   # Ay görevleri için standart
+            "X": 8.4e9,   # Derin uzay standartı
+            "Ka": 32.0e9, # Yüksek veri hızı standartı
+            "Optical": 1.93e14 # 1550nm Lazer
         }
+
+    def get_tua_mission_params(self, mission_name="Ay Projesi"):
+        """
+        Milli Uzay Programı özel görev parametrelerini döndürür.
+        """
+        missions = {
+            "Ay Projesi": {"dist_au": 0.00257, "band": "S", "target": "Moon"},
+            "Mars Testi": {"dist_au": 1.52, "band": "X", "target": "Mars"},
+            "Jüpiter Flyby": {"dist_au": 5.2, "band": "Ka", "target": "Jupiter"}
+        }
+        return missions.get(mission_name, missions["Ay Projesi"])
 
     def calculate_fspl(self, distance_au, frequency_hz):
         """Free Space Path Loss (FSPL) calculator."""

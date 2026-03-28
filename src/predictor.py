@@ -2,21 +2,18 @@ import numpy as np
 
 class TelemetryPredictor:
     """
-    AI-based SNR Forecasting module.
-    Predicts future SNR degradation based on solar flux trends.
+    AI tabanlı telemetri tahmin ve analiz modülü.
+    Sinyal trendlerini ve anomalileri yapay zeka ile tespit eder.
     """
     
     def __init__(self):
-        # Placeholder for a trained model weight (e.g., trend coefficient)
         self.degradation_coeff = -0.15 
         
     def predict_snr_trend(self, current_snr, solar_flux_index, hours_ahead=24):
         """
-        Predicts SNR after N hours based on current solar activity.
-        solar_flux_index: 0 to 100 (synthetic measure of solar activity)
+        Güneş akısı ve mevcut SNR değerine göre 24 saatlik trend tahmini yapar.
         """
-        # Linear degradation model as a proxy for a more complex LSTM
-        # SNR_future = SNR_current + (coeff * flux * hours)
+        # LSTM/Transformer yerine kullanılan basit lineer bozulum modeli
         delta = self.degradation_coeff * (solar_flux_index / 10.0) * (hours_ahead / 24.0)
         predicted_snr = current_snr + delta
         
