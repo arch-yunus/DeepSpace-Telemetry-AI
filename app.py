@@ -8,12 +8,13 @@ from src.predictor import TelemetryPredictor
 from src.scheduler import DSNScheduler
 from src.api_connector import SpaceWeatherAPI
 from src.relay import MissionRelay
+from src.analyser import MonteCarloAnalyser, CoverageMapper
 
 # Sayfa Yapılandırması
-st.set_page_config(page_title="DeepSpace-Telemetry-AI Milli Vizyon", layout="wide")
+st.set_page_config(page_title="DeepSpace-Telemetry-AI Galaktik Seviye", layout="wide")
 
-st.title("🛰️ DeepSpace-Telemetry-AI: Milli Uzay Vizyonu")
-st.markdown("### Derin Uzay Haberleşme Analiz ve Karar Destek Sistemi (Master-Class)")
+st.title("🛰️ DeepSpace-Telemetry-AI: Galaktik Görev Kontrol")
+st.markdown("### İleri Seviye Derin Uzay Analiz Ekosistemi (Galactic-Class)")
 
 # Yan Panel Girişleri
 st.sidebar.header("📡 Görev Kontrol (TUA)")
@@ -33,6 +34,8 @@ predictor = TelemetryPredictor()
 scheduler = DSNScheduler()
 api = SpaceWeatherAPI()
 relay = MissionRelay(engine)
+analyser = MonteCarloAnalyser(engine)
+mapper = CoverageMapper(engine)
 
 # Görev Parametrelerini Al
 m_params = engine.get_tua_mission_params(mission_type)
@@ -54,58 +57,54 @@ p_noise_thermal = engine.calculate_thermal_noise(25, 1e6)
 snr = engine.calculate_snr(p_tx, g_tx, g_rx, fspl, p_noise_thermal, t_solar=t_solar, fec_gain_db=fec_gain, atmos_loss_db=atmos_loss)
 ber = engine.calculate_ber(snr, modulation=modulation)
 
-# 3D Görselleştirme
-if positions:
-    fig = go.Figure()
-    fig.add_trace(go.Scatter3d(x=[positions['sun'][0]], y=[positions['sun'][1]], z=[positions['sun'][2]], mode='markers', marker=dict(size=12, color='yellow'), name='Güneş'))
-    fig.add_trace(go.Scatter3d(x=[positions['earth'][0]], y=[positions['earth'][1]], z=[positions['earth'][2]], mode='markers', marker=dict(size=8, color='blue'), name='Dünya'))
-    fig.add_trace(go.Scatter3d(x=[positions['mars'][0]], y=[positions['mars'][1]], z=[positions['mars'][2]], mode='markers', marker=dict(size=6, color='red'), name='Mars'))
-    fig.add_trace(go.Scatter3d(x=[positions['earth'][0], positions['mars'][0]], y=[positions['earth'][1], positions['mars'][1]], z=[positions['earth'][2], positions['mars'][2]], mode='lines', line=dict(color='white', width=2), name='Haberleşme Linki'))
+# Ana Ekran Sekmeleri
+tab1, tab2, tab3 = st.tabs(["📊 Standart Analiz", "🧠 İleri Seviye (Galaktik)", "🌍 Yer İstasyonu"])
+
+with tab1:
+    # 3D Görselleştirme
+    if positions:
+        fig = go.Figure()
+        fig.add_trace(go.Scatter3d(x=[positions['sun'][0]], y=[positions['sun'][1]], z=[positions['sun'][2]], mode='markers', marker=dict(size=12, color='yellow'), name='Güneş'))
+        fig.add_trace(go.Scatter3d(x=[positions['earth'][0]], y=[positions['earth'][1]], z=[positions['earth'][2]], mode='markers', marker=dict(size=8, color='blue'), name='Dünya'))
+        fig.add_trace(go.Scatter3d(x=[positions['mars'][0]], y=[positions['mars'][1]], z=[positions['mars'][2]], mode='markers', marker=dict(size=6, color='red'), name='Mars'))
+        fig.add_trace(go.Scatter3d(x=[positions['earth'][0], positions['mars'][0]], y=[positions['earth'][1], positions['mars'][1]], z=[positions['earth'][2], positions['mars'][2]], mode='lines', line=dict(color='white', width=2), name='Haberleşme Linki'))
+        
+        fig.update_layout(title="3D Yörünge Geometrisi (J2000)", scene=dict(bgcolor='black'), margin=dict(l=0, r=0, b=0, t=40))
+        st.plotly_chart(fig, use_container_width=True)
+
+    # Metrikler
+    col1, col2, col3, col4 = st.columns(4)
+    with col1: st.metric("Mesafe", f"{dist_au:.4f} AU")
+    with col2: st.metric("SEP Açısı", f"{sep_angle:.2f}°")
+    with col3: st.metric("SNR (RF)", f"{snr:.2f} dB")
+    with col4: st.metric("SNR (Optik)", f"{engine.calculate_optical_snr(10, dist_au):.1f} dB")
+
+with tab2:
+    st.header("🌌 Galaktik Analiz Araçları")
+    c1, c2 = st.columns(2)
     
-    fig.update_layout(title="3D Yörünge Geometrisi (Ecliptic J2000)", scene=dict(bgcolor='black', xaxis=dict(gridcolor='gray'), yaxis=dict(gridcolor='gray'), zaxis=dict(gridcolor='gray')), margin=dict(l=0, r=0, b=0, t=40))
-    st.plotly_chart(fig, use_container_width=True)
+    with c1:
+        st.subheader("🎲 Monte Carlo Güven Analizi")
+        runs, stats = analyser.run_simulation(snr)
+        fig_mc = go.Figure(data=[go.Histogram(x=runs, nbinsx=30, marker_color='cyan')])
+        fig_mc.update_layout(title="SNR Dağılımı (%95 Güven)", xaxis_title="SNR (dB)", yaxis_title="Frekans")
+        st.plotly_chart(fig_mc, use_container_width=True)
+        st.write(f"**Link Kullanılabilirliği:** %{stats['availability']:.2f}")
+        st.write(f"**Ortalama SNR:** {stats['mean']:.2f} dB")
 
-# Dashboard Metrikleri
-col1, col2, col3, col4 = st.columns(4)
-with col1:
-    st.metric("Mesafe", f"{dist_au:.4f} AU")
-with col2:
-    st.metric("SEP Açısı", f"{sep_angle:.2f}°")
-with col3:
-    st.metric("SNR (RF)", f"{snr:.2f} dB")
-with col4:
-    opt_snr = engine.calculate_optical_snr(p_tx_watts=10, distance_au=dist_au)
-    st.metric("SNR (Optik)", f"{opt_snr:.1f} dB")
+    with c2:
+        st.subheader("🛤️ Röle Yolu Optimizasyonu (Dijkstra)")
+        target = st.selectbox("Hedef Düğüm", ["Deep-Space-Probe", "Mars-Relay", "Lunar-Gateway"])
+        path, opt_snr = relay.optimize_path("Dünya", target)
+        st.success(f"En İyi Rota: {' -> '.join(path)}")
+        st.write(f"Kümülatif Tahmini SNR: {opt_snr:.2f} dB")
 
-# Detaylı Analiz
-st.divider()
-c1, c2 = st.columns(2)
-
-with c1:
-    st.subheader("📋 Link Bütçesi Detayları")
-    st.write(f"**Yol Kaybı (FSPL):** -{fspl:.2f} dB | **Atmosferik Kayıp:** -{atmos_loss:.2f} dB")
-    st.write(f"**Güneş Gürültüsü:** +{t_solar:.0f} K | **FEC Kazancı:** +{fec_gain:.1f} dB")
-    if ber > 1e-5:
-        st.error("⚠️ KRİTİK: Hata oranı (BER) güvenli sınırın üzerinde.")
-    else:
-        st.success("✅ OPTİMAL: Bağlantı koşulları stabil.")
-
-with c2:
-    st.subheader("📡 NASA DSN Canlı Durum (Entegrasyon)")
+with tab3:
+    st.subheader("📡 NASA DSN Canlı Durum ve Yer Segmenti")
     dsn_data = api.fetch_dsn_now_realtime()
-    for station in dsn_data[:3]:
+    for station in dsn_data[:5]:
         st.write(f"**{station['name']}** ({station['type']}): `{station['status']}`")
 
-# AI Insights
+# Footer
 st.divider()
-st.subheader("🧠 Yapay Zeka Görev Analizi")
-is_anomaly, z_score = predictor.detect_anomalies([snr-1, snr+1, snr-0.5, snr+0.5, snr-5]) 
-if is_anomaly:
-    st.warning(f"🚨 ANOMALİ TESPİT EDİLDİ: Sinyal düşüşü saptandı (Z-Score: {z_score:.2f})")
-else:
-    st.info("AI Analizi: Son telemetri çerçevelerinde anomali saptanmadı.")
-
-st.markdown("""
----
-*Bu sistem TUA Astrohackathon 2026 kapsamında Milli Uzay Programı hedefleri için geliştirilmiştir.*
-""")
+st.markdown("*Bu sistem TUA Astrohackathon 2026 kapsamında en üst seviye teknik yeterlilik (Galactic-Class) için geliştirilmiştir.*")

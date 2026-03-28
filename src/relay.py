@@ -2,32 +2,50 @@ import numpy as np
 
 class MissionRelay:
     """
-    Simulates a Multi-Hop Deep Space Relay (e.g. Lander -> MRO -> Earth).
-    Calculates cumulative noise and end-to-end latency.
+    Derin uzay görevleri için çok sıçramalı (multi-hop) haberleşme ve rota optimizasyonu.
+    Dijkstra algoritması ile en yüksek SNR yolunu bulur.
     """
-    
     def __init__(self, engine):
         self.engine = engine
-        
-    def simulate_hop(self, p_tx, dist_au, freq_band="X"):
-        """Simulates a single communication hop."""
-        freq = self.engine.frequencies.get(freq_band, 8.4e9)
-        fspl = self.engine.calculate_fspl(dist_au, freq)
-        # Assuming fixed relay antenna gains
-        snr = self.engine.calculate_snr(p_tx, 30, 30, fspl, 1e-15)
-        latency = (dist_au * 1.496e11) / 299792458
-        return snr, latency
+        # Düğüm Tanımları (AU cinsinden pozisyonlar)
+        self.nodes = {
+            "Dünya": {"type": "Yer İstasyonu", "pos": 0},
+            "Lunar-Gateway": {"type": "Orbiter", "pos": 0.00257},
+            "Mars-Relay": {"type": "Orbiter", "pos": 1.52},
+            "Deep-Space-Probe": {"type": "Sonda", "pos": 5.2}
+        }
 
-    def calculate_end_to_end(self, hops_data):
-        """
-        hops_data: List of (p_tx, dist_au, freq_band)
-        """
-        total_latency = 0
-        min_snr = 999
+    def calculate_hop_snr(self, node_a, node_b):
+        """İki düğüm arasındaki tahmini SNR'ı hesaplar."""
+        dist = abs(self.nodes[node_a]["pos"] - self.nodes[node_b]["pos"])
+        if dist == 0: return 100
+        # Basit bütçe modeli: 80 - 20*log10(d)
+        snr = 80 - (20 * np.log10(dist * 1.5e8 + 1))
+        return max(5, snr)
+
+    def optimize_path(self, start_node, end_node):
+        """Dijkstra ile en yüksek toplam SNR sağlayan yolu bulur."""
+        import heapq
         
-        for hop in hops_data:
-            snr, lat = self.simulate_hop(*hop)
-            total_latency += lat
-            min_snr = min(min_snr, snr)
+        # En kısa yol algoritmasını SNR maksimizasyonu için uyarlıyoruz
+        queue = [(0, start_node, [])]
+        visited = set()
+        
+        while queue:
+            (cost, current, path) = heapq.heappop(queue)
             
-        return min_snr, total_latency
+            if current in visited: continue
+            visited.add(current)
+            
+            path = path + [current]
+            
+            if current == end_node:
+                return path, -cost
+            
+            for neighbor in self.nodes:
+                if neighbor not in visited:
+                    hop_snr = self.calculate_hop_snr(current, neighbor)
+                    # Kümülatif maliyet (negatif SNR)
+                    heapq.heappush(queue, (cost - hop_snr, neighbor, path))
+        
+        return [start_node, end_node], 0

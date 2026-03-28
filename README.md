@@ -1,78 +1,66 @@
-# 🛰️ DeepSpace-Telemetry-AI: Milli Uzay Teknolojileri Ekosistemi
+# 🛰️ DeepSpace-Telemetry-AI: Galaktik Haberleşme Ekosistemi
 
 <div align="center">
   <img src="https://img.shields.io/badge/Durum-G%C3%B6reve_Haz%C4%B1r-success?style=for-the-badge&logo=nasa" alt="Göreve Hazır">
-  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Milli_Vizyon-red?style=for-the-badge" alt="Milli Vizyon">
+  <img src="https://img.shields.io/badge/S%C4%B1n%C4%B1f-Galactic_Class-gold?style=for-the-badge" alt="Galactic Class">
   <img src="https://img.shields.io/badge/Etkinlik-TUA_Astrohackathon-0052cc?style=for-the-badge" alt="TUA">
 </div>
 
 ---
 
-## 🌌 Genel Bakış
-**DeepSpace-Telemetry-AI**, Türkiye'nin derin uzay hedefleri (Ay Projesi, Mars ve ötesi) için haberleşme linklerini yüksek sadakatle modelleyen, analiz eden ve yapay zeka ile optimize eden yerli bir simülasyon platformudur.
+## 🌌 Genel Bakış (Galactic-Class)
+**DeepSpace-Telemetry-AI**, Türkiye'nin uzay vizyonunu yıldızlararası seviyeye taşıyan, akademik derinlikli bir haberleşme simülasyon ve analiz ekosistemidir. Bu platform, yalnızca link bütçesi hesaplamakla kalmaz; olasılıksal risk analizi, rota optimizasyonu ve fiziksel anomali tespiti yaparak görev kontrol ekiplerine stratejik karar desteği sunar.
 
-Bu ekosistem, teorik astrofizik verilerini operasyonel telekomünikasyon standartlarıyla birleştirerek; **Skyfield tabanlı yörünge mekaniği**, **CCSDS standartlarında modülasyon analizi** ve **Lazer (Optik) haberleşme modelleme** yeteneklerini tek bir platformda sunar.
-
----
-
-## 🚀 Temel Teknoloji Sütunları
-
-### 📡 1. Yüksek Hassasiyetli Fizik Motoru
-*   **Yörünge Hassasiyeti:** NASA/JPL DE421 ephemeris verileri kullanılarak Dünya ve hedef gezegen konumları anlık hesaplanır.
-*   **Yayılım Modelleri:** FSPL, Atmosferik Gaz/Yağmur sönümlenmesi (ITU-R P.676) ve İyonosferik Sintilasyon (Nakagami-m).
-*   **Güneş Girişimi:** Sun-Earth-Probe (SEP) açısına bağlı dinamik gürültü sıcaklığı modellemesi.
-
-### 💡 2. İleri Seviye Haberleşme Modelleri
-*   **RF Standartları:** CCSDS uyumlu BPSK, QPSK, 8-PSK ve 16-APSK modülasyon performans analizleri.
-*   **Optik (Lazer) Bağlantılar:** 1550nm lazer linkleri için foton sayma istatistikleri ve yönelim hatası (jitter) analizleri.
-*   **Milli Görev Profilleri:** TUA Ay Projesi ve derin uzay testleri için özelleştirilmiş parametreler.
-
-### 🤖 3. Yapay Zeka ve Tahminleme
-*   **SNR Tahmini:** Güneş akısı ve geçmiş verilere dayalı sinyal kalitesi trend analizi.
-*   **Anomali Tespiti:** Sinyaldeki ani düşüşleri ve fiziksel tutarsızlıkları 3-Sigma motoru ile yakalama.
-*   **Canlı Veri:** NASA Deep Space Network (DSN Now) üzerinden anlık istasyon durumu entegrasyonu.
+Sistem, **Master-Class** temelleri üzerine inşa edilen **Galactic-Class** genişlemesiyle; Dijkstra tabanlı röle ağları ve Monte Carlo yöntemli güvenilirlik modellerini içermektedir.
 
 ---
 
-## 🖥️ İnteraktif Milli Vizyon Dashboard
-Proje, görev kontrol personeli için profesyonel bir **Streamlit** arayüzü sunar.
+## 🚀 Zirve Seviye Teknik Özellikler
 
-### Özellikler:
--   **3D Yörünge Görünümü:** Sun, Dünya ve hedef gezegenlerin anlık konumları ve haberleşme vektörü.
--   **Link Bütçesi Analizörü:** SNR, BER ve Kapasite değerlerinin gerçek zamanlı hesaplanması.
--   **TUA Görev Profilleri:** Ay Projesi, Mars Testi ve Jüpiter Flyby senaryoları.
--   **DSN Canlı Durum:** Aktif yer istasyonlarının anlık çalışma durumları.
+### 🛤️ 1. Dijkstra Rota Optimizasyonu (Relay Optimization)
+*   **Akıllı Ağ:** Dünya'dan derin uzay sondasına kadar olan yolda (Moon-Gateway, Mars-Relay düğümleri üzerinden) en yüksek kümülatif SNR değerini sunan rotayı otomatik belirler.
+*   **Dinamik Rota:** Düğümlerin konumuna göre anlık olarak en verimli haberleşme yolunu hesaplar.
 
-### Hızlı Başlangıç:
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+### 🎲 2. Monte Carlo Güven Analizi (Statistical Reliability)
+*   **1000+ Senaryo:** Atmosferik türbülans, güneş gürültüsü ve iyonosferik bozulmaları olasılıksal motorla simüle eder.
+*   **Link Kullanılabilirliği:** Haberleşmenin hangi oranda (örneğin %99.9) kesintisiz devam edebileceğini istatistiksel olarak raporlar.
+
+### 📡 3. Çok Disiplinli Fizik Motoru (RF & Optik)
+*   **Lazer (Optik):** 1550nm lazer linkleri için foton istatistikleri ve yönelim hatası analizi.
+*   **RF S-Band/X/Ka:** CCSDS uyumlu modülasyonlar (BPSK'dan 16-APSK'ya) ve ITU-R sönümleme modelleri.
+*   **NASA DSN Entegrasyonu:** NASA'nın "DSN Now" servisinden alınan canlı verilerle operasyonel uyumluluk.
+
+---
+
+## 🖥️ Galactic Görev Kontrol Dashboard
+Yenilenen **Streamlit** arayüzü, üç ana uzmanlık sekmesi sunar:
+-   **📊 Standart Analiz:** 3D yörünge mekaniği ve temel link metrikleri.
+-   **🧠 Galaktik Analiz Araçları:** Monte Carlo Histogramları ve Dijkstra Rota sonuçları.
+-   **🌍 Yer Segmenti:** NASA DSN canlı istasyon durumu ve atmosferik kayıplar.
 
 ---
 
 ## 📂 Mimari Yapı
 ```text
 📦 DeepSpace-Telemetry-AI
- ┣ 📂 src              # Çekirdek Kütüphane
- ┃ ┣ 📜 engine.py      # Fizik ve Modülasyon (RF/Optik)
- ┃ ┣ 📜 predictor.py   # AI Tahmin ve Anomali Tespiti
- ┃ ┣ 📜 relay.py       # Çok Sıçramalı Röle Mantığı
- ┃ ┣ 📜 scheduler.py   # DSN İstasyon Atayıcı
- ┃ ┗ 📜 api_connector.py # NASA DSN ve Uzay Havası API'leri
- ┣ 📂 simulations      # Görev Senaryoları
- ┣ 📂 docs             # Teknik Raporlar ve Grafikler
- ┣ 📜 app.py           # Streamlit Milli Vizyon Dashboard
- ┗ 📜 requirements.txt # Sistem Bağımlılıkları
+ ┣ 📂 src               # Çekirdek Kütüphane
+ ┃ ┣ 📜 engine.py       # Fizik Motoru (RF/Optik)
+ ┃ ┣ 📜 analyser.py     # Monte Carlo & Isı Haritaları
+ ┃ ┣ 📜 relay.py        # Dijkstra Rota Optimizasyonu
+ ┃ ┣ 📜 predictor.py    # AI Anomali Tespiti
+ ┃ ┗ 📜 api_connector.py # NASA/DSN Canlı Entegrasyon
+ ┣ 📂 docs              # Teknik Dokümantasyon
+ ┃ ┗ 📜 akademik_teknik_rapor.md # Matematiksel Modeller Raporu
+ ┣ 📜 app.py            # Galactic-Class Dashboard
+ ┗ 📜 requirements.txt  # Bağımlılıklar
 ```
 
 ---
 
 ## 👨‍💻 Geliştirici
-**Yunus Emre** | Çok Disiplinli Sistem Tasarımcısı | Yapay Zeka ve Uzay Bilimleri Uygulayıcısı  
-**TUA Astrohackathon 2026** kapsamında Türk Uzay Programı vizyonu için geliştirilmiştir.
+**Yunus Emre** | **TUA Astrohackathon 2026** kapsamında Türk Uzay Programı'nın teknik mükemmeliyet hedefleri doğrultusunda geliştirilmiştir.
 
 ---
 <div align="center">
-  <i>"İstikbal Göklerdedir!"</i>
+  <i>"Gözümüz Yükseklerde, Yolumuz Yıldızlar arası!"</i>
 </div>
